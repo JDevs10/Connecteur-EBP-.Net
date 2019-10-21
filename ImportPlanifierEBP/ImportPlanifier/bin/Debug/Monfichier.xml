@@ -1,0 +1,589 @@
+
+<StructuredImportEntity EntityGuid="d88065bf-1464-45bb-9781-04d19fbcf090">
+  <FileEncoding>Windows-1252</FileEncoding>
+  <FileFormat>0</FileFormat>
+  <StandardSeparator>;</StandardSeparator>
+  <Separator>;</Separator>
+  <StandardRecordSeparator>&#xD;
+</StandardRecordSeparator>
+  <RecordSeparator>&#xD;
+</RecordSeparator>
+  <StartLine>1</StartLine>
+  <FirstRecordAsHeader>True</FirstRecordAsHeader>
+  <StandardDelimiter>_</StandardDelimiter>
+  <Delimiter />
+  <Markers />
+  <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+  <CreatedUser />
+  <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+  <ModifiedUser />
+  <MappingLines>
+    <MappingLineEntity>
+      <DestinationProperty>SetNumberAsDocumentNumber</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DocumentNumberPrefix</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DocumentNumberSuffix</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DocumentNumber</DestinationProperty>
+      <SourceColumn>OrderId</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DocumentDate</DestinationProperty>
+      <SourceColumn>Date</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ThirdId</DestinationProperty>
+      <SourceColumn>ThirdId</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ThirdCivility</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ThirdName</DestinationProperty>
+      <SourceColumn>ThirdName</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingAddress1</DestinationProperty>
+      <SourceColumn>Address</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingAddress2</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingAddress3</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingAddress4</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingZipCode</DestinationProperty>
+      <SourceColumn>ZipCode</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingCity</DestinationProperty>
+      <SourceColumn>City</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingCountryIsoCode</DestinationProperty>
+      <SourceColumn>Country</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingLastName</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingFirstName</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingPhone</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingCellPhone</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingFax</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>InvoicingEmail</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryAddress1</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryAddress2</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryAddress3</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryAddress4</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryZipCode</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryCity</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryCountryIsoCode</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryLastName</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryFirstName</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryPhone</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryCellPhone</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryFax</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DeliveryEmail</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>Territoriality</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>IntracommunityVatNumber</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>GlobalDiscountRate</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>FinancialDiscountRate</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ShippingId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ShippingAmount</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ShippingVatRateValue</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ShippingVatRateId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>TotalAmountVatExcluded</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>TotalAmountVatIncluded</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>Notes</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ItemId</DestinationProperty>
+      <SourceColumn>ItemId</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>Description</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>Quantity</DestinationProperty>
+      <SourceColumn>Quantity</SourceColumn>
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>VatRateValue</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>VatRateId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>ColleagueId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>SalePriceVatExcluded</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>SalePriceVatIncluded</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DiscountRate</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DiscountAmount</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>AmountVatExcluded</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>AmountVatIncluded</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>LineColleagueId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>SetThirdColleagueIdIfNull</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>SettlementModeId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DepositAmount</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>PaymentTypeId</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+    <MappingLineEntity>
+      <DestinationProperty>DepositDate</DestinationProperty>
+      <SourceColumn />
+      <Enabled>True</Enabled>
+      <CreatedDate>2012-01-30T11:04:45</CreatedDate>
+      <CreatedUser />
+      <ModifiedDate>2012-01-30T11:04:45</ModifiedDate>
+      <ModifiedUser />
+    </MappingLineEntity>
+  </MappingLines>
+</StructuredImportEntity>

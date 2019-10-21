@@ -1,0 +1,57 @@
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\Microsoft.Win32.TaskScheduler.dll
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\Microsoft.Win32.TaskScheduler.xml
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\it\Microsoft.Win32.TaskScheduler.resources.dll
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\zh-CN\Microsoft.Win32.TaskScheduler.resources.dll
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ResolveAssemblyReference.cache
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Configuration.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportBonLivraison.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportCommande.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportFactures.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.importManuel.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Main.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Planifier.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Validation.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Properties.Resources.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBPv15.csproj.GenerateResource.Cache
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Clients.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ConfMail.resources
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\ConnecteurEBP15.exe
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\ConnecteurEBP15.pdb
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBP15.exe
+E:\Documents and Settings\OTHMAN\Mes documents\Visual Studio 2008\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBP15.pdb
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\ConnecteurEBP15.exe
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\ConnecteurEBP15.pdb
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Clients.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Configuration.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ConfMail.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportBonLivraison.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportCommande.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportFactures.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.ImportClient.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.importManuel.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Main.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Planifier.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Validation.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Properties.Resources.resources
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBPv15.csproj.GenerateResource.Cache
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBP15.exe
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBP15.pdb
+C:\Users\OTHMAN\Documents\Visual Studio 2013\Projects\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBPv15.csprojResolveAssemblyReference.cache
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBP15.exe
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBP15.pdb
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\ConnecteurEBP15.exe
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\bin\Release\ConnecteurEBP15.pdb
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBPv15.csprojResolveAssemblyReference.cache
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Clients.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Configuration.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ConfMail.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportBonLivraison.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportCommande.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.ExportFactures.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.ImportClient.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.importManuel.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Main.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Planifier.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Forms.Validation.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurSage.Properties.Resources.resources
+\\psf\Home\Downloads\Projects-1\ConnecteurEBPv15\ConnecteurEBPv15\obj\Release\ConnecteurEBPv15.csproj.GenerateResource.Cache

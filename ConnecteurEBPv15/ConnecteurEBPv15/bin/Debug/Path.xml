@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Path xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <path>C:\Users\OTHMAN\Desktop\Bootstrap.jsp-master</path>
+  <ImportCommande>true</ImportCommande>
+  <ExportCommande>false</ExportCommande>
+  <ExportFacture>false</ExportFacture>
+  <ExportBonLivraison>false</ExportBonLivraison>
+</Path>
