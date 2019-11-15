@@ -65,6 +65,7 @@
     <Compile Include="Classes\Action.cs" />
     <Compile Include="Classes\Action2.cs" />
     <Compile Include="Classes\ActionPlanifier.cs" />
+    <Compile Include="Classes\ConfSendMail.cs" />
     <Compile Include="Classes\DocumentVente.cs" />
     <Compile Include="Classes\DocumentVenteLine.cs" />
     <Compile Include="Classes\ExporterBonsLivraisons.cs" />

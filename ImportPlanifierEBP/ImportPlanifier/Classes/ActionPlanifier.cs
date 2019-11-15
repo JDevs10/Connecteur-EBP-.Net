@@ -10,6 +10,10 @@ using System.Data;
 using Microsoft.Win32.TaskScheduler;
 using System.Xml;
 using System.Globalization;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace ConsoleApplication1.Classes
 {
@@ -472,12 +476,38 @@ namespace ConsoleApplication1.Classes
                 }
                 if (FileExiste)
                 {
-                    LogFile.WriteLine(DateTime.Now + " : Fin de l'execution");
-                    LogFile.WriteLine("");
-                    LogFile.WriteLine("Nombre de fichier scanner : " + nbr);
-                    LogFile.WriteLine("Nombre des commandes validées : " + commandeValider);
-                    LogFile.WriteLine("Nombre des commandes echouées : " + (nbr - commandeValider));
-                    LogFile.Close();
+                    if ((nbr - commandeValider) > 0)
+                    {
+                        LogFile.WriteLine(DateTime.Now + " : Fin de l'execution");
+                        LogFile.WriteLine("");
+                        LogFile.WriteLine("Nombre de fichier scanner : " + nbr);
+                        LogFile.WriteLine("Nombre des commandes validées : " + commandeValider);
+                        LogFile.WriteLine("Nombre des commandes echouées : " + (nbr - commandeValider));
+                        LogFile.WriteLine("");
+                        LogFile.WriteLine(DateTime.Now + " : Execution d'Alert !");
+                        LogFile.Flush();
+                        LogFile.Close();
+
+                        EnvoiMail(getInfoMail(),
+                                 "Erreur EDI BJ Service", 
+                                 "Bonjour,\n\n\nIl y a des erreurs dans l'importation automatique!\nConsultez le fichier en pièce jointe pour plus d'informations sur l'exécution.\n\nCeci est un courrier automatique s'il vous plaît ne répondez pas, merci!", 
+                                 outputFile + @"\" + logFileName);
+                    } else
+                    {
+                        LogFile.WriteLine(DateTime.Now + " : Fin de l'execution");
+                        LogFile.WriteLine("");
+                        LogFile.WriteLine("Nombre de fichier scanner : " + nbr);
+                        LogFile.WriteLine("Nombre des commandes validées : " + commandeValider);
+                        LogFile.WriteLine("Nombre des commandes echouées : " + (nbr - commandeValider));
+                        LogFile.Close();
+
+                        /* envoyer un mail pour valider l'importation
+                        sendMail("Importation EDI BJ Service",
+                                 "Bonjour,\n\n\nIl y a des erreurs dans l'importation automatique!\nConsultez le fichier en pièce jointe pour plus d'informations sur l'exécution.\n\nCeci est un courrier automatique s'il vous plaît ne répondez pas, merci!",
+                                 outputFile + @"\" + logFileName);
+                                 */
+                    }
+                    
                 }
             goError:
                 Console.WriteLine(DateTime.Now + " : Fin de l'execution");
@@ -529,6 +559,110 @@ namespace ConsoleApplication1.Classes
 
         }
         //---------------------------------------- Fin import planifier ------------------------------------------------
+
+        public static ConfSendMail getInfoMail()
+        {
+            try
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("Software\\Sage\\Connecteur sage");
+                if (key != null)
+                {
+                    ConfSendMail confMail = new ConfSendMail();
+                    confMail.active = key.GetValue("active").ToString() == "" ? false : (key.GetValue("active").ToString() == "True" ? true : false);
+                    confMail.smtp = key.GetValue("smtp").ToString();
+                    confMail.port = key.GetValue("port").ToString() == "" ? 0 : int.Parse(key.GetValue("port").ToString());
+                    confMail.password = Utils.Decrypt(key.GetValue("password").ToString());
+                    confMail.login = key.GetValue("login").ToString();
+                    confMail.dest1 = key.GetValue("dest1").ToString();
+                    confMail.dest2 = key.GetValue("dest2").ToString();
+                    confMail.dest3 = key.GetValue("dest3").ToString();
+                    return confMail;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogFile.WriteLine(DateTime.Now + " : Erreur[43] - " + ex.Message);
+
+                return null;
+            }
+        }
+
+        public static void EnvoiMail(ConfSendMail confMail, string subject, string body, string attachement)
+        {
+            if(confMail != null)
+            {
+                try
+                {
+                    // Objet mail
+                    MailMessage msg = new MailMessage();
+
+                    // Expéditeur (obligatoire). Notez qu'on peut spécifier le nom
+                    msg.From = new MailAddress("conneteur.sage@cs.app", "CONNECTEUR EBP");
+
+                    // Destinataires (il en faut au moins un)
+                    if (!string.IsNullOrEmpty(confMail.dest1))
+                    {
+                        msg.To.Add(new MailAddress(confMail.dest1, confMail.dest1));
+                    }
+                    if (!string.IsNullOrEmpty(confMail.dest2))
+                    {
+                        msg.To.Add(new MailAddress(confMail.dest2, confMail.dest2));
+                    }
+                    if (!string.IsNullOrEmpty(confMail.dest3))
+                    {
+                        msg.To.Add(new MailAddress(confMail.dest3, confMail.dest3));
+                    }
+                    //msg.To.Add(new MailAddress("agent.smith@matrix.com", "Agent Smith"));
+
+                    // Destinataire(s) en copie (facultatif)
+                    //msg.Cc.Add(new MailAddress("wonder.woman@superhero.com", "Wonder Woman"));
+
+                    msg.Subject = subject;
+
+                    // Texte du mail (facultatif)
+                    msg.Body = body;
+
+                    // Fichier joint si besoin (facultatif)
+                    if (attachement != "" && File.Exists(attachement))
+                    {
+                        msg.Attachments.Add(new Attachment(attachement));
+                    }
+
+                    SmtpClient client;
+
+                    if (confMail.smtp != "" && confMail.login != "" && confMail.password != "")
+                    {
+                        // Envoi du message SMTP
+                        client = new SmtpClient(confMail.smtp, confMail.port);
+                        client.Credentials = new NetworkCredential(confMail.login, confMail.password);
+                    }
+                    else
+                    {
+                        client = new SmtpClient("smtp.gmail.com", 587);
+                        client.Credentials = new NetworkCredential("connecteur.sage@gmail.com", "@Amyaj2013");
+                    }
+
+                    client.EnableSsl = true;
+                    //NetworkInformation s = new NetworkCredential;
+                    ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
+                    // Envoi du mail
+                    client.Send(msg);
+
+                    Console.WriteLine(DateTime.Now + " : Envoi de Mail..OK");
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(DateTime.Now + " : " + e.Message);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Récupération du prochain identifiant de commande
