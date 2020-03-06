@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ConnecteurEBP.Classes
 {
@@ -35,9 +33,9 @@ namespace ConnecteurEBP.Classes
 
         public static string Generer()
         {
-            string crypterDate = "";
+              string crypterDate = "";
 
-            string crypterMot = "";
+              string crypterMot = "";
 
             //______________________  crypterDate date ___________________________________________
 
@@ -80,7 +78,6 @@ namespace ConnecteurEBP.Classes
                 }
             }
 
-
             //_______________________ crypterDate mot cle __________________________________________
 
             string mot = motcle[random.Next(0, 20)];
@@ -104,19 +101,20 @@ namespace ConnecteurEBP.Classes
                 crypterMot = crypterMot + Matrice2[listIndexMotcle[i]];
             }
 
+
             string cry = Matrice1[random.Next(0, 61)].ToString() + crypterMot + crypterDate;
             return cry.Substring(0, 4) + "-" + cry.Substring(4, 4) + "-" + cry.Substring(8, 4) + "-" + cry.Substring(12, 4);
         }
 
 
-        // ------------------------------------ decrypter la clé -------------------------------------------------------
+// ------------------------------------ decrypter la clé -------------------------------------------------------
 
         public static Boolean decrypter(string mot)
         {
             Boolean isValideDate = false;
             Boolean isValideMot = false;
 
-            string crypterDate = mot.Substring(6, 10);
+            string crypterDate = mot.Substring(6,10);
             string decrypterDate = "";
             string crypterMot = mot.Substring(1, 5);
             string decrypterMot = "";
@@ -149,12 +147,14 @@ namespace ConnecteurEBP.Classes
 
             }
 
+
+
             DateTime dateTime;
 
             // tester si la date est valide
-            if (DateTime.TryParse(decrypterDate.Substring(0, (decrypterDate.Length - 2)), out dateTime))
+            if (DateTime.TryParse(decrypterDate, out dateTime))
             {
-                if (dateTime == DateTime.Today)
+                if(dateTime == DateTime.Today)
                 {
                     isValideDate = true;
                 }
@@ -206,7 +206,7 @@ namespace ConnecteurEBP.Classes
             {
                 return false;
             }
-
+            
 
 
         }

@@ -1,175 +1,97 @@
-﻿using ConnecteurEBP.Classes;
-using ConnecteurEBP.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Odbc;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConnecteurEBP.Utilities;
+using System.Data.SqlClient;
+using ConnecteurEBP.Classes;
+using ProgressBarExample;
+using System.Threading;
+using System.IO;
 
 namespace ConnecteurEBP.Forms
 {
     public partial class ExportCommande : Form
     {
-        #region Champs privés
-        /// <summary>
-        /// commande à exporter
-        /// </summary>
-        private Piece CommandeAExporter;
-
-        #endregion
-
-        #region Constructeurs
-        /// <summary>
-        /// Création d'une instance de ImportOrdersForm
-        /// </summary>
         public ExportCommande()
         {
             InitializeComponent();
         }
-        #endregion
 
-        #region Intéractions avec l'application
+        private DocumentVente documentvente;
 
-        private List<Piece> GetCommandesFromDataBase()
+        private List<DocumentVente> GetCommandeFromDataBase()
         {
-            try
+            //DocumentVente Commande = new DocumentVente();
+            List<DocumentVente> listCommandes = new List<DocumentVente>();
+            using (SqlConnection sqlConnection = Utils.CreateSqlConnection())
             {
-                //DocumentVente Facture = new DocumentVente();
-                List<Piece> listCommande = new List<Piece>();
-                using (OdbcConnection connection = Connexion.CreateOdbcConnextion())
+                try
                 {
-
-                    connection.Open();
+                    sqlConnection.Open();
                     //Exécution de la requête permettant de récupérer les articles du dossier
-                    OdbcCommand command = new OdbcCommand(QueryHelper.Lists_Commandes(), connection);
+                    using (SqlCommand cmd = new SqlCommand(QueryHelper.getListCommandes(), sqlConnection))
                     {
-                        using (IDataReader reader = command.ExecuteReader())
+                        using (IDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                Piece order = new Piece(reader[0].ToString(), reader[1].ToString(),
-                                    reader[2].ToString().Replace("00:00:00", ""), reader[3].ToString(),
-                                    reader[4].ToString(),
-                                    reader[5].ToString(), reader[6].ToString(), reader[7].ToString(),
-                                    reader[8].ToString(), reader[9].ToString(),
-                                    reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString()
+                                DocumentVente Commande = new DocumentVente(reader["Id"].ToString(), reader["DocumentNumber"].ToString(), reader["NumberPrefix"].ToString(), reader["NumberSuffix"].ToString(), reader["DocumentDate"].ToString().Substring(0, 10),
+                                    reader["DeliveryDate"].ToString(), reader["InvoicingAddress_Address1"].ToString(), reader["InvoicingAddress_Address2"].ToString(), reader["InvoicingAddress_Address3"].ToString(),
+                                    reader["InvoicingAddress_Address4"].ToString(), reader["InvoicingAddress_ZipCode"].ToString(), reader["InvoicingAddress_City"].ToString(), reader["InvoicingAddress_CountryIsoCode"].ToString(),
+                                    reader["DeliveryAddress_Address1"].ToString(), reader["DeliveryAddress_Address2"].ToString(), reader["DeliveryAddress_Address3"].ToString(), reader["DeliveryAddress_Address4"].ToString(),
+                                    reader["DeliveryAddress_ZipCode"].ToString(), reader["DeliveryAddress_City"].ToString(), reader["DeliveryAddress_CountryIsoCode"].ToString(), reader["CommitmentsBalanceDue"].ToString(),
+                                    reader["AmountVatExcluded"].ToString(), reader["DiscountRate"].ToString(), reader["DiscountAmount"].ToString(), reader["AmountVatExcludedWithDiscount"].ToString(),
+                                    reader["AmountVatExcludedWithDiscountAndShipping"].ToString().Replace(",",".").Replace("000000",""), reader["AmountVatExcludedWithDiscountAndShippingWithoutEcotax"].ToString(), reader["VatAmount"].ToString(), reader["AmountVatIncluded"].ToString().Replace(",",".").Replace("000000",""),
+                                    reader["DepositAmount"].ToString(), reader["DepositCurrencyAmount"].ToString(), reader["TotalDueAmount"].ToString(), reader["DetailVatAmount0_DetailVatRate"].ToString(),
+                                    reader["DetailVatAmount0_DetailAmountVatExcluded"].ToString(), reader["PaymentTypeId"].ToString(), reader["BankId"].ToString(), reader["FinancialDiscountType"].ToString(),
+                                    reader["FinancialDiscountRate"].ToString(), reader["FinancialDiscountAmount"].ToString(), reader["CurrencyId"].ToString(), reader["IntrastatTransportMode"].ToString(), reader["CustomerId"].ToString(),
+                                    reader["CustomerName"].ToString(), reader["DocumentType"].ToString(), reader["OriginDocumentType"].ToString(), reader["TransferedDocumentId"].ToString(),
+                                    reader["InvoicingContact_Name"].ToString(), reader["InvoicingContact_FirstName"].ToString(),
+                                    reader["InvoicingContact_Phone"].ToString(), reader["InvoicingContact_CellPhone"].ToString(), reader["InvoicingContact_Fax"].ToString(), reader["InvoicingContact_Email"].ToString(),
+                                    reader["InvoicingContact_Function"].ToString(), reader["DeliveryContact_Name"].ToString(), reader["DeliveryContact_FirstName"].ToString(), reader["DeliveryContact_Phone"].ToString(),
+                                    reader["DeliveryContact_CellPhone"].ToString(), reader["DeliveryContact_Fax"].ToString(), reader["DeliveryContact_Email"].ToString(), reader["DeliveryContact_Function"].ToString(),
+                                    reader["DetailTaxAmount0_TaxCalculationBase"].ToString(), reader["DetailTaxAmount0_BaseAmount"].ToString(), reader["DetailTaxAmount0_TaxAmount"].ToString(), reader["DetailTaxAmount0_TaxCaption"].ToString(),
+                                     reader["DetailTaxAmount1_TaxCalculationBase"].ToString(), reader["DetailTaxAmount1_BaseAmount"].ToString(), reader["DetailTaxAmount1_TaxAmount"].ToString(), reader["DetailTaxAmount1_TaxCaption"].ToString(),
+                                     reader["DetailTaxAmount2_TaxCalculationBase"].ToString(), reader["DetailTaxAmount2_BaseAmount"].ToString(), reader["DetailTaxAmount2_TaxAmount"].ToString(), reader["DetailTaxAmount2_TaxCaption"].ToString(),
+                                     reader["DetailTaxAmount3_TaxCalculationBase"].ToString(), reader["DetailTaxAmount3_BaseAmount"].ToString(), reader["DetailTaxAmount3_TaxAmount"].ToString(), reader["DetailTaxAmount3_TaxCaption"].ToString(),
+                                     reader["DetailTaxAmount4_TaxCalculationBase"].ToString(), reader["DetailTaxAmount4_BaseAmount"].ToString(), reader["DetailTaxAmount4_TaxAmount"].ToString(), reader["DetailTaxAmount4_TaxCaption"].ToString(),
+                                     reader["DetailTaxAmount5_TaxCalculationBase"].ToString(), reader["DetailTaxAmount5_BaseAmount"].ToString(), reader["DetailTaxAmount5_TaxAmount"].ToString(), reader["DetailTaxAmount5_TaxCaption"].ToString(),
+                                     reader["reference"].ToString()
+
+
                                     );
-                                listCommande.Add(order);
+                                listCommandes.Add(Commande);
                             }
                         }
                     }
-                    return listCommande;
-
+                    return listCommandes;
                 }
-
-            }
-
-            catch (Exception e)
-            {
-                //Exceptions pouvant survenir durant l'exécution de la requête SQL
-                MessageBox.Show(e.Message);
-                return null;
+                catch (InvalidOperationException e)
+                {
+                    //Exception pouvant survenir si l'objet SqlConnection est dans l'état 'Fermé'
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    //Exception pouvant survenir si les champs de la requête ne sont plus en adéquation avec ceux de la base de données
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+                catch (SqlException e)
+                {
+                    //Exceptions pouvant survenir durant l'exécution de la requête SQL
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
             }
         }
 
-
-
-
-
-
-        /// <summary>
-        /// Génération du fichier d'import, lancement de l'application et import des commandes
-        /// </summary>
-        private void ExportFacture()
-        {
-            try
-            {
-
-                if (string.IsNullOrEmpty(textBox1.Text))
-                {
-                    MessageBox.Show("Le chemin du fichier d'import de commande doit être renseigné");
-                    return;
-                }
-
-
-                var fileName = string.Format("EDI_ORDERS." + CommandeAExporter.CodebarCT + "." + CommandeAExporter.SPiece_CodeTable + "." + ConvertDate(CommandeAExporter.cdate) + "." + CommandeAExporter.TiersAdresse2Ligne + "." + CommandeAExporter.TiersAdresse2CodePo + "." + CommandeAExporter.TiersAdresse2Ville + "." + CommandeAExporter.TiersAdresse2CodePa + ".{0:yyyyMMddhhmmss}.csv", DateTime.Now);
-
-                fileName = fileName.Replace("?", "é");
-
-                using (StreamWriter writer = new StreamWriter(textBox1.Text + @"\" + fileName.Replace("..", "."), false, Encoding.UTF8))
-                {
-
-                    //if (CommandeAExporter.DO_MOTIF == "")
-                    //{
-                    //    CommandeAExporter.DO_MOTIF = CommandeAExporter.NumCommande;
-                    //}
-                    if (CommandeAExporter.TiersAdresse2CodePa != "")
-                    {
-                        CommandeAExporter.TiersAdresse2CodePa = getPays(CommandeAExporter.TiersAdresse2CodePa);
-                    }
-
-                    writer.WriteLine("ORDERS;" + CommandeAExporter.SPiece_CodeTable + ";" + CommandeAExporter.CodebarCT + ";" + CommandeAExporter.CodebarCT + ";;;;" + CommandeAExporter.ContactLiv_Nom + "." + CommandeAExporter.TiersAdresse2Ligne.Replace("?", "é") + "." + CommandeAExporter.TiersAdresse2CodePo + "." + CommandeAExporter.TiersAdresse2Ville.Replace("?", "é") + "." + CommandeAExporter.TiersAdresse2CodePa + ";" + CommandeAExporter.TiersDevise + ";;");
-
-                    if (CommandeAExporter.cdate != "")
-                    {
-                        CommandeAExporter.cdate = ConvertDate(CommandeAExporter.cdate);
-                    }
-
-                    //if (CommandeAExporter.DateCommande != " ")
-                    //{
-                    //    CommandeAExporter.conditionLivraison = "";
-                    //}
-
-                    writer.WriteLine("ORDHD1;" + CommandeAExporter.cdate + ";;;");
-
-                    CommandeAExporter.Lines = getLigneCommande(CommandeAExporter.NumeroNumero);
-
-                    for (int i = 0; i < CommandeAExporter.Lines.Count; i++)
-                    {
-                        string[] tab = CommandeAExporter.Lines[i].commentaire.Split(';');
-                        string codeAchteur = "";
-                        string codefourn = "";
-                        if (tab.Length == 2)
-                        {
-                            codeAchteur = tab[0];
-                            codefourn = tab[1];
-                        }
-                        writer.WriteLine("ORDLIN;" + CommandeAExporter.Lines[i].ip + ";" + CommandeAExporter.Lines[i].barCode + ";GS1;" + codeAchteur + ";" + codefourn + ";;A;" + CommandeAExporter.Lines[i].libelle + ";" + CommandeAExporter.Lines[i].quantite.Replace(",", ".") + ";LM;" + CommandeAExporter.Lines[i].MontantNetHT.Replace(",", ".") + ";;;" + CommandeAExporter.Lines[i].PxUnitBrut.Replace(",", ".") + ";;;LM;;;;" + ConvertDate(CommandeAExporter.Lines[i].DateLiv) + ";");
-                    }
-                    writer.WriteLine("ORDEND;" + CommandeAExporter.NetAPayer.Replace(",", ".") + ";");
-
-
-
-                }
-
-                MessageBox.Show("Commande exportée avec succés", "Information !!",
-                                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-
-                Close();
-
-
-
-            }
-            catch (Exception ex)
-            {
-                //Exception pouvant survenir si lorsque l'accès au disque dur est refusé
-                MessageBox.Show(ex.Message);
-            }
-        }
-        #endregion
-
-        #region Méthodes diverses
-        /// <summary>
-        /// Chargement de la fenêtre
-        /// </summary>
-        /// <param name="e">paramètres de l'évènement</param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -193,54 +115,123 @@ namespace ConnecteurEBP.Forms
                             progressDialog.UpdateProgress(n);
                         }
 
-                        //Affichage des clients du dossier
-                        if (customersDataGridView.InvokeRequired)
+
+                       // Customer customer = ListCommandesDataGridView.SelectedRows[0].DataBoundItem as Customer;
+                        if (ListCommandesDataGridView.InvokeRequired)
                         {
-                            customersDataGridView.Invoke(new MethodInvoker(delegate
+                            ListCommandesDataGridView.Invoke(new MethodInvoker(delegate
                             {
-                                customersDataGridView.DataSource = GetCommandesFromDataBase();
-                                for (int n = 26; n < 45; n++)
+                                ListCommandesDataGridView.DataSource = GetCommandeFromDataBase();
+
+                                for (int n = 46; n < 75; n++)
                                 {
                                     Thread.Sleep(1);
                                     progressDialog.UpdateProgress(n);
                                 }
-                                importButton.Enabled = customersDataGridView.Rows.Count > 0;
 
-                                if (customersDataGridView.Columns["NumeroPrefixe"] != null)
-                                    customersDataGridView.Columns["NumeroPrefixe"].HeaderText = "Préfixe";
-                                if (customersDataGridView.Columns["NumeroNumero"] != null)
-                                    customersDataGridView.Columns["NumeroNumero"].HeaderText = "Numéro";
-                                if (customersDataGridView.Columns["cdate"] != null)
-                                    customersDataGridView.Columns["cdate"].HeaderText = "Date";
-                                if (customersDataGridView.Columns["TiersCode"] != null)
-                                    customersDataGridView.Columns["TiersCode"].HeaderText = "Client";
-                                if (customersDataGridView.Columns["TiersAdresse2Ligne"] != null)
-                                    customersDataGridView.Columns["TiersAdresse2Ligne"].Visible = false;
-                                if (customersDataGridView.Columns["TiersAdresse2CodePo"] != null)
-                                    customersDataGridView.Columns["TiersAdresse2CodePo"].Visible = false;
-                                if (customersDataGridView.Columns["TiersAdresse2Ville"] != null)
-                                    customersDataGridView.Columns["TiersAdresse2Ville"].Visible = false;
-                                if (customersDataGridView.Columns["TiersAdresse2CodePa"] != null)
-                                    customersDataGridView.Columns["TiersAdresse2CodePa"].Visible = false;
-                                if (customersDataGridView.Columns["TiersDevise"] != null)
-                                    customersDataGridView.Columns["TiersDevise"].Visible = false;
-                                if (customersDataGridView.Columns["NetAPayer"] != null)
-                                    customersDataGridView.Columns["NetAPayer"].HeaderText = "Net A Payer";
-                                if (customersDataGridView.Columns["DateLivraison"] != null)
-                                    customersDataGridView.Columns["DateLivraison"].Visible = false;
-                                if (customersDataGridView.Columns["SPiece_CodeTable"] != null)
-                                    customersDataGridView.Columns["SPiece_CodeTable"].Visible = false;
-                                if (customersDataGridView.Columns["CodebarCT"] != null)
-                                    customersDataGridView.Columns["CodebarCT"].Visible = false;
-                                if (customersDataGridView.Columns["ContactLiv_Nom"] != null)
-                                    customersDataGridView.Columns["ContactLiv_Nom"].Visible = false;
+                                importButton.Enabled = ListCommandesDataGridView.Rows.Count > 0;
+                                ListCommandesDataGridView.Columns["DocumentDate"].HeaderText = "Date de Commande";
+                                ListCommandesDataGridView.Columns["DocumentNumber"].HeaderText = "N° document";
+                                ListCommandesDataGridView.Columns["CustomerId"].HeaderText = "Code client";
+                                ListCommandesDataGridView.Columns["DeliveryDate"].Visible = false;
+                                ListCommandesDataGridView.Columns["PaymentTypeId"].Visible = false;
+                                ListCommandesDataGridView.Columns["CustomerName"].Visible = false;
+                                ListCommandesDataGridView.Columns["BankId"].Visible = false;
+                                ListCommandesDataGridView.Columns["FinancialDiscountType"].Visible = false;
+                                ListCommandesDataGridView.Columns["FinancialDiscountRate"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailVatAmount0_DetailAmountVatExcluded"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailVatAmount0_DetailAmountVatExcluded"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailVatAmount0_DetailVatRate"].Visible = false;
+                                ListCommandesDataGridView.Columns["TotalDueAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DepositCurrencyAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DepositAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["AmountVatIncluded"].HeaderText = "Montant TTC";
+                                ListCommandesDataGridView.Columns["VatAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["AmountVatExcludedWithDiscountAndShippingWithoutEcotax"].Visible = false;
+                                ListCommandesDataGridView.Columns["AmountVatExcludedWithDiscountAndShipping"].HeaderText = "Montant Total HT";
+                                ListCommandesDataGridView.Columns["AmountVatExcludedWithDiscount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DiscountAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DiscountRate"].Visible = false;
+                                ListCommandesDataGridView.Columns["AmountVatExcluded"].Visible = false;
+                                ListCommandesDataGridView.Columns["CommitmentsBalanceDue"].Visible = false;
+                                ListCommandesDataGridView.Columns["codePays_livraison"].Visible = false;
+                                ListCommandesDataGridView.Columns["Ville_livraison"].Visible = false;
+                                ListCommandesDataGridView.Columns["Codepostal_livraison"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse4_livraison"].Visible = false;
 
-                                //Récupération du prochain identifiant de commande à utiliser
-                                //string nextOrderId = GetNextOrderId();
+                                for (int n = 76; n < 90; n++)
+                                {
+                                    Thread.Sleep(1);
+                                    progressDialog.UpdateProgress(n);
+                                }
+
+                                ListCommandesDataGridView.Columns["Adresse3_livraison"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse2_livraison"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse1_livraison"].Visible = false;
+                                ListCommandesDataGridView.Columns["codePays_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Ville_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Codepostal_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse4_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse3_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse2_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Adresse1_facturation"].Visible = false;
+                                ListCommandesDataGridView.Columns["Id"].Visible = false;
+                                ListCommandesDataGridView.Columns["NumberSuffix"].Visible = false;
+                                ListCommandesDataGridView.Columns["NumberPrefix"].Visible = false;
+                                ListCommandesDataGridView.Columns["FinancialDiscountAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["CurrencyId"].Visible = false;
+                                ListCommandesDataGridView.Columns["IntrastatTransportMode"].Visible = false;
+                                ListCommandesDataGridView.Columns["DocumentType"].Visible = false;
+                                ListCommandesDataGridView.Columns["OriginDocumentType"].Visible = false;
+                                ListCommandesDataGridView.Columns["TransferedDocumentId"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_Name"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_FirstName"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_Phone"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_CellPhone"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_Fax"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_Email"].Visible = false;
+                                ListCommandesDataGridView.Columns["InvoicingContact_Function"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_Name"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_FirstName"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_Phone"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_CellPhone"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_Fax"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_Email"].Visible = false;
+                                ListCommandesDataGridView.Columns["DeliveryContact_Function"].Visible = false;
+
+                                ListCommandesDataGridView.Columns["DetailTaxAmount0_TaxCalculationBase"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount0_BaseAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount0_TaxAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount0_TaxCaption"].Visible = false;
+
+                                ListCommandesDataGridView.Columns["DetailTaxAmount1_TaxCalculationBase"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount1_BaseAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount1_TaxAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount1_TaxCaption"].Visible = false;
+
+                                ListCommandesDataGridView.Columns["DetailTaxAmount2_TaxCalculationBase"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount2_BaseAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount2_TaxAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount2_TaxCaption"].Visible = false;
+
+                                ListCommandesDataGridView.Columns["DetailTaxAmount3_TaxCalculationBase"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount3_BaseAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount3_TaxAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount3_TaxCaption"].Visible = false;
+
+                                ListCommandesDataGridView.Columns["DetailTaxAmount4_TaxCalculationBase"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount4_BaseAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount4_TaxAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount4_TaxCaption"].Visible = false;
+
+                                ListCommandesDataGridView.Columns["DetailTaxAmount5_TaxCalculationBase"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount5_BaseAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount5_TaxAmount"].Visible = false;
+                                ListCommandesDataGridView.Columns["DetailTaxAmount5_TaxCaption"].Visible = false;
                             }));
                         }
 
-                        for (int n = 46; n < 100; n++)
+                        for (int n = 91; n < 100; n++)
                         {
                             Thread.Sleep(1);
                             progressDialog.UpdateProgress(n);
@@ -263,76 +254,30 @@ namespace ConnecteurEBP.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.Message.Replace("ERROR", "Erreur").Replace("[Pervasive]", " ").Replace("[ODBC Client Interface]", "").Replace("[LNA]", " ").Replace("[Pervasive]", "").Replace("[ODBC Engine Interface]", " "), "Erreur!!",
-                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message);
             }
 
         }
 
-        public static string ConvertDate(string date)
-        {
-            if (date.Length == 11 || date.Length == 19)
-            {
-                return date.Substring(6, 4) + date.Substring(3, 2) + date.Substring(0, 2);
-            }
-            return date;
-        }
-
-        /// <summary>
-        /// Fermeture de la fenêtre
-        /// </summary>
-        /// <param name="sender">objet déclenchant l'évènement</param>
-        /// <param name="e">paramètres de l'évènement</param>
         private void closeButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        /// <summary>
-        /// Remplissage des infos d'adresse du client sélectionné
-        /// </summary>
-        /// <param name="sender">objet déclenchant l'évènement</param>
-        /// <param name="e">paramètres de l'évènement</param>
-        private void customersDataGridView_SelectionChanged(object sender, EventArgs e)
+        private void ListCommandesDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            if (customersDataGridView.SelectedRows.Count == 0)
+            if (ListCommandesDataGridView.SelectedRows.Count == 0)
             {
                 importButton.Enabled = false;
                 return;
             }
-            Piece order = customersDataGridView.SelectedRows[0].DataBoundItem as Piece;
-            if (order == null)
-                throw new NullReferenceException("order");
+            
+            documentvente = ListCommandesDataGridView.SelectedRows[0].DataBoundItem as DocumentVente;
+            
+            //if (order == null)
+            //    throw new NullReferenceException("order");
 
-            CommandeAExporter = order;
-
-        }
-
-        /// <summary>
-        /// Lancement de l'import
-        /// </summary>
-        /// <param name="sender">objet déclenchant l'évènement</param>
-        /// <param name="e">paramètres de l'évènement</param>
-        private void importButton_Click(object sender, EventArgs e)
-        {
-            importButton.Enabled = false;
-
-            ExportFacture();
-        }
-        #endregion
-
-        private void itemsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void customersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void ImportOrdersForm_Load(object sender, EventArgs e)
-        {
+            //CommandeAExporter = order;
 
         }
 
@@ -356,74 +301,240 @@ namespace ConnecteurEBP.Forms
             }
         }
 
-        private string getPays(string code)
+        private List<DocumentVenteLine> getDocumentLine(string id)
         {
-            try
+            List<DocumentVenteLine> listLines = new List<DocumentVenteLine>();
+
+            using (SqlConnection sqlConnection = Utils.CreateSqlConnection())
             {
-                using (OdbcConnection connection = Connexion.CreateOdbcConnextion())
+                try
                 {
-
-                    connection.Open();
-                    //Exécution de la requête permettant de récupérer les articles du dossier
-                    OdbcCommand command = new OdbcCommand(QueryHelper.CodeDEB_Pays(code), connection);
+                    sqlConnection.Open();
+                    //Exécution de la requête permettant de récupérer le prochain identifiant de commandes à utiliser
+                    using (SqlCommand cmd = new SqlCommand(QueryHelper.getDocumentLine(id), sqlConnection))
                     {
-                        using (IDataReader reader = command.ExecuteReader())
+                        using (IDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
-                            {
-                                return reader[0].ToString();
-                            }
+                            while (reader.Read())
+
+                                listLines.Add(new DocumentVenteLine(reader["LineOrder"].ToString(), reader["DescriptionClear"].ToString(),
+                                    reader["ItemId"].ToString(), reader["Quantity"].ToString(), reader["RealQuantity"].ToString().Substring(0, 10),
+                                    reader["PurchasePrice"].ToString(),
+                                    reader["CostPrice"].ToString(), reader["TotalDiscountRate"].ToString(), reader["NetPriceVatExcluded"].ToString(),
+                                    reader["NetPriceVatIncluded"].ToString(), reader["NetPriceVatExcludedWithDiscount"].ToString(),
+                                    reader["NetPriceVatIncludedWithDiscount"].ToString(), reader["NetAmountVatExcluded"].ToString(),
+                                    reader["NetAmountVatExcludedWithDiscount"].ToString(), reader["NetAmountVatIncluded"].ToString(),
+                                    reader["NetAmountVatIncludedWithDiscount"].ToString(), reader["VatId"].ToString(),
+                                    reader["OrderedQuantity"].ToString(), reader["VatAmount"].ToString(), reader["DeliveryDate"].ToString(), reader["DeliveredQuantity"].ToString(),
+                                    reader["NetWeight"].ToString(), reader["TotalNetWeight"].ToString(), reader["RealNetAmountVatExcluded"].ToString(),
+                                    reader["RealNetAmountVatExcludedWithDiscount"].ToString(), reader["RealNetAmountVatIncluded"].ToString(),
+                                    reader["RealNetAmountVatIncludedWithDiscount"].ToString(),
+                                    reader["RealNetAmountVatExcludedWithDiscountAndFinancialDiscount"].ToString(),
+                                    reader["RealNetAmountVatIncludedWithDiscountAndFinancialDiscount"].ToString(), reader["SalePriceVatExcluded"].ToString(),
+                                    reader["SalePriceVatIncluded"].ToString(), reader["TrackingNumber"].ToString(), reader["Volume"].ToString(), reader["TotalVolume"].ToString(),
+
+                                    reader["Discounts0_UnitDiscountRate"].ToString(), reader["Discounts0_UnitDiscountAmountVatExcluded"].ToString(), reader["Discounts0_DiscountType"].ToString(),
+                                    reader["Discounts1_UnitDiscountRate"].ToString(), reader["Discounts1_UnitDiscountAmountVatExcluded"].ToString(), reader["Discounts1_DiscountType"].ToString(),
+                                    reader["Discounts2_UnitDiscountRate"].ToString(), reader["Discounts2_UnitDiscountAmountVatExcluded"].ToString(), reader["Discounts2_DiscountType"].ToString(),
+                                    reader["OtherTaxes0_TaxValue"].ToString(), reader["OtherTaxes0_TaxAmount"].ToString(),
+                                    reader["OtherTaxes1_TaxValue"].ToString(), reader["OtherTaxes1_TaxAmount"].ToString(),
+                                    reader["OtherTaxes2_TaxValue"].ToString(), reader["OtherTaxes2_TaxAmount"].ToString(),
+                                    reader["NumberOfItemByPackage"].ToString()
+                                    ));
+
+
+
+                            return new List<DocumentVenteLine>(listLines);
                         }
+                        //Si aucun prochain identifiant n'est récupéré, retourner la valeur 00000001
+                        return new List<DocumentVenteLine>();
                     }
-                    return null;
-
                 }
-
-            }
-
-            catch (Exception ex)
-            {
-                //Exceptions pouvant survenir durant l'exécution de la requête SQL
-                MessageBox.Show("" + ex.Message.Replace("ERROR", "Erreur").Replace("[Pervasive]", " ").Replace("[ODBC Client Interface]", "").Replace("[LNA]", " ").Replace("[Pervasive]", "").Replace("[ODBC Engine Interface]", " "), "Erreur!!",
-                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return null;
+                catch (InvalidOperationException e)
+                {
+                    //Exception pouvant survenir si l'objet SqlConnection est dans l'état 'Fermé'
+                    MessageBox.Show(e.Message);
+                    return new List<DocumentVenteLine>();
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    //Exception pouvant survenir si les champs de la requête ne sont plus en adéquation avec ceux de la base de données
+                    MessageBox.Show(e.Message);
+                    return new List<DocumentVenteLine>();
+                }
+                catch (SqlException e)
+                {
+                    //Exceptions pouvant survenir durant l'exécution de la requête SQL
+                    MessageBox.Show(e.Message);
+                    return new List<DocumentVenteLine>();
+                }
             }
         }
 
-        private List<Ligne> getLigneCommande(string code)
+        private string GetEANClient(string id)
+        {
+            using (SqlConnection sqlConnection = Utils.CreateSqlConnection())
+            {
+                try
+                {
+                    sqlConnection.Open();
+                    //Exécution de la requête permettant de récupérer le prochain identifiant de commandes à utiliser
+                    using (SqlCommand cmd = new SqlCommand(QueryHelper.returnEANClient(id), sqlConnection))
+                    {
+                        using (IDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                                return reader[0] as string;
+                        }
+                        //Si aucun prochain identifiant n'est récupéré, retourner la valeur 00000001
+                        return null;
+                    }
+                }
+                catch (InvalidOperationException e)
+                {
+                    //Exception pouvant survenir si l'objet SqlConnection est dans l'état 'Fermé'
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    //Exception pouvant survenir si les champs de la requête ne sont plus en adéquation avec ceux de la base de données
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+                catch (SqlException e)
+                {
+                    //Exceptions pouvant survenir durant l'exécution de la requête SQL
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+            }
+        }
+
+        public static string ConvertDate(string date)
+        {
+            if (date.Length == 10 || date.Length == 19)
+            {
+                return date.Substring(6, 4) + date.Substring(3, 2) + date.Substring(0, 2);
+            }
+            return date;
+        }
+
+        private void importButton_Click(object sender, EventArgs e)
         {
             try
             {
-                using (OdbcConnection connection = Connexion.CreateOdbcConnextion())
+
+                if (string.IsNullOrEmpty(textBox1.Text))
                 {
-                    List<Ligne> lines = new List<Ligne>();
+                    MessageBox.Show("Le chemin du fichier d'import de commande doit être renseigné");
+                    return;
+                }
 
-                    connection.Open();
-                    //Exécution de la requête permettant de récupérer les articles du dossier
-                    OdbcCommand command = new OdbcCommand(QueryHelper.LignesDesCommandes(code), connection);
+                string EANClient = GetEANClient(documentvente.CustomerId);
+
+
+                var fileName = string.Format("EDI_ORDERS." + EANClient + "." + documentvente.DocumentNumber + (documentvente.reference == "" ? "" : ".") + documentvente.reference.Replace("Document importé n° ", "").Replace(" (prix article différent)", "").Replace("/", "") + "." + ConvertDate(documentvente.DocumentDate.Replace("00:00:00", "")) + "." + documentvente.Ville_livraison + ".{0:yyyyMMddhhmmss}.csv", DateTime.Now);
+
+                fileName = fileName.Replace("...", ".");
+
+                using (StreamWriter writer = new StreamWriter(textBox1.Text + @"\" + fileName.Replace("..", "."), false, Encoding.UTF8))
+                {
+                    //if (CommandeAExporter.deviseCommande == "0")
+                    //{
+                    //    CommandeAExporter.deviseCommande = "";
+                    //}
+
+                    //if (CommandeAExporter.deviseCommande != "")
+                    //{
+                    //    CommandeAExporter.deviseCommande = getDeviseIso(CommandeAExporter.deviseCommande);
+                    //}
+
+                    string adresseDeLivraison = documentvente.Adresse1_livraison + "*" + documentvente.Adresse2_livraison + "*" + documentvente.Adresse3_livraison + "*" + documentvente.Adresse4_livraison + "*" + documentvente.Codepostal_livraison + "*" + documentvente.Ville_livraison + "*" + documentvente.codePays_livraison;
+
+                    //adresseDeLivraison = adresseDeLivraison.Replace("...",".");
+
+                    writer.WriteLine("ORDERS;" + documentvente.DocumentNumber + (documentvente.reference == "" ? "":" - ") + documentvente.reference.Replace("Document importé n° ", "").Replace(" (prix article différent)", "") + ";" + EANClient + ";" + EANClient + ";;;;" + adresseDeLivraison + ";" + documentvente.CurrencyId + ";;");
+
+                    //if (CommandeAExporter.DateCommande != "")
+                    //{
+                    //    CommandeAExporter.DateCommande = ConvertDate(CommandeAExporter.DateCommande);
+                    //}
+
+                    //if (CommandeAExporter.DateCommande != " ")
+                    //{
+                    //    CommandeAExporter.conditionLivraison = "";
+                    //}
+
+                    writer.WriteLine("ORDHD1;" + ConvertDate(documentvente.DocumentDate.Replace("00:00:00", "")) + ";;" + documentvente.PaymentTypeId + ";");
+
+                    documentvente.lines = getDocumentLine(documentvente.Id);
+
+                    for (int i = 0; i < documentvente.lines.Count; i++)
                     {
-                        using (IDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                lines.Add(new Ligne(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), reader[7].ToString()));
-                            }
+                        string EANArticle = GetEANArticle(documentvente.lines[i].ItemId);
 
-                            return lines;
-                        }
+                        writer.WriteLine("ORDLIN;" + documentvente.lines[i].LineOrder + ";" + EANArticle + ";GS1;;;;;" + documentvente.lines[i].DescriptionClear + ";" + documentvente.lines[i].Quantity.Replace(",", ".").Replace("00000", "") + ";LM;" + documentvente.lines[i].RealNetAmountVatExcluded.Replace(",", ".").Replace("00000", "") + ";;;" + documentvente.lines[i].NetPriceVatExcluded.Replace(",", ".").Replace("00000", "") + ";;;LM;;;;" + ConvertDate(documentvente.lines[i].DeliveryDate.Replace(" 00:00:00", "")) + ";");
                     }
-                    return null;
+                    writer.WriteLine("ORDEND;" + documentvente.AmountVatExcludedWithDiscountAndShipping.Replace(",", ".").Replace("00000", "") + ";");
+
+
 
                 }
 
-            }
+                MessageBox.Show("Commande exportée avec succés", "Information !!",
+                                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
+                Close();
+
+
+
+            }
             catch (Exception ex)
             {
-                //Exceptions pouvant survenir durant l'exécution de la requête SQL
-                MessageBox.Show("" + ex.Message.Replace("ERROR", "Erreur").Replace("[Pervasive]", " ").Replace("[ODBC Client Interface]", "").Replace("[LNA]", " ").Replace("[Pervasive]", "").Replace("[ODBC Engine Interface]", " "), "Erreur!!",
-                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return null;
+                //Exception pouvant survenir si lorsque l'accès au disque dur est refusé
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private string GetEANArticle(string id)
+        {
+            using (SqlConnection sqlConnection = Utils.CreateSqlConnection())
+            {
+                try
+                {
+                    sqlConnection.Open();
+                    //Exécution de la requête permettant de récupérer le prochain identifiant de commandes à utiliser
+                    using (SqlCommand cmd = new SqlCommand(QueryHelper.returnEANArticle(id), sqlConnection))
+                    {
+                        using (IDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                                return reader[0] as string;
+                        }
+                        //Si aucun prochain identifiant n'est récupéré, retourner la valeur 00000001
+                        return null;
+                    }
+                }
+                catch (InvalidOperationException e)
+                {
+                    //Exception pouvant survenir si l'objet SqlConnection est dans l'état 'Fermé'
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    //Exception pouvant survenir si les champs de la requête ne sont plus en adéquation avec ceux de la base de données
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
+                catch (SqlException e)
+                {
+                    //Exceptions pouvant survenir durant l'exécution de la requête SQL
+                    MessageBox.Show(e.Message);
+                    return null;
+                }
             }
         }
 

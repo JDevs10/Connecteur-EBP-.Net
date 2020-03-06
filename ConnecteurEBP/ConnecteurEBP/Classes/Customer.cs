@@ -1,56 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace ConnecteurEBP.Classes
 {
-    class Customer
+  /// <summary>
+  /// Classe représentant un client
+  /// </summary>
+  public class Customer
+  {
+    #region Constructeurs
+    /// <summary>
+    /// Création d'une instance de Customer
+    /// </summary>
+    public Customer()
     {
-        public string CT_Num { set; get; }
-        public string CT_Intitule { set; get; }
-        public string CT_Adresse { set; get; }
-        public string CT_APE { set; get; }
-        public string CAPITAL_SOCIAL { set; get; }
-        public string CT_CodePostal { set; get; }
-        public string CT_CodeRegion { set; get; }
-        public string CT_Complement { set; get; }
-        public string CT_CONTACT { set; get; }
-        public string CT_EDI1 { set; get; }
-        public string CT_email { set; get; }
-        public string CT_Identifiant { set; get; }
-        public string CT_Ville { set; get; }
-        public string CT_Pays { set; get; }
-        public string CT_Siret { set; get; }
-        public string CT_Telephone { set; get; }
-        public string N_DEVISE { set; get; }
-
-        public Customer()
-        {
-        }
-
-
-        public Customer(string CT_Num,string CT_Intitule,string CT_Adresse,string CT_APE,string CAPITAL_SOCIAL,string CT_CodePostal,string CT_CodeRegion,string CT_Complement,string CT_CONTACT,string CT_EDI1,string CT_email,string CT_Identifiant,string CT_Ville,
-                        string CT_Pays,string CT_Siret,string CT_Telephone,string N_DEVISE)
-        {
-            this.CT_Num = CT_Num;
-            this.CT_Intitule = CT_Intitule;
-            this.CT_Adresse = CT_Adresse;
-            this.CT_APE = CT_APE;
-            this.CAPITAL_SOCIAL = CAPITAL_SOCIAL;
-            this.CT_CodePostal = CT_CodePostal;
-            this.CT_CodeRegion = CT_CodeRegion;
-            this.CT_Complement = CT_Complement;
-            this.CT_CONTACT = CT_CONTACT;
-            this.CT_EDI1 = CT_EDI1;
-            this.CT_email = CT_email;
-            this.CT_Identifiant = CT_Identifiant;
-            this.CT_Ville = CT_Ville;
-            this.CT_Pays = CT_Pays;
-            this.CT_Siret = CT_Siret;
-            this.CT_Telephone = CT_Telephone;
-            this.N_DEVISE = N_DEVISE;
-        }
     }
+
+    /// <summary>
+    /// Création d'une instance de Customer
+    /// </summary>
+    /// <param name="id">l'identifiant du client</param>
+    /// <param name="name">le nom du client</param>
+    /// <param name="sales">le chiffre d'affaires du client</param>
+    public Customer(string id, string name, decimal? sales)
+    {
+      Id = id;
+      Name = name;
+      Sales = sales;
+    }
+    #endregion
+
+    #region Propriétés
+    /// <summary>
+    /// Retourne et modifie l'identifiant du client
+    /// </summary>
+    public string Id { get; set; }
+    /// <summary>
+    /// Retourne et modifie le nom du client
+    /// </summary>
+    public string Name { get; set; }
+    /// <summary>
+    /// Retourne et modifie l'adresse du client
+    /// </summary>
+    public string Address { get; set; }
+    /// <summary>
+    /// Retourne et modifie le code postal du client
+    /// </summary>
+    public string ZipCode { get; set; }
+    /// <summary>
+    /// Retourne et modifie la ville du client
+    /// </summary>
+    public string City { get; set; }
+    /// <summary>
+    /// Retourne et modifie le pays du client
+    /// </summary>
+    public string Country { get; set; }
+    /// <summary>
+    /// Retourne et modifie le chiffre d'affaires du client
+    /// </summary>
+    public decimal? Sales { get; set; }
+    #endregion
+  }
 }

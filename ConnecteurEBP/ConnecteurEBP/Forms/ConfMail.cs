@@ -8,7 +8,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConnecteurEBP.Forms
@@ -22,7 +21,7 @@ namespace ConnecteurEBP.Forms
             try
             {
                 InitializeComponent();
-                key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("Software\\EBP\\Connecteur EBP15");
+                key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("Software\\EBP\\Connecteur EBP");
                 if (key != null)
                 {
                     checkBox1.Checked = key.GetValue("active").ToString() == "" ? false : (key.GetValue("active").ToString() == "True" ? true : false);
@@ -99,7 +98,6 @@ namespace ConnecteurEBP.Forms
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         public static bool IsValidEmail(string email)
@@ -129,7 +127,7 @@ namespace ConnecteurEBP.Forms
         {
             try
             {
-                key = Microsoft.Win32.Registry.LocalMachine.CreateSubKey("Software\\EBP\\Connecteur EBP15");
+                key = Microsoft.Win32.Registry.LocalMachine.CreateSubKey("Software\\EBP\\Connecteur EBP");
                 key.SetValue("Version", "0.1");
                 key.SetValue("Name", "Connecteur sage");
                 key.SetValue("smtp", cMail.smtp);

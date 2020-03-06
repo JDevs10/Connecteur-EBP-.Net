@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ConnecteurEBP.Classes
 {
@@ -31,7 +30,7 @@ namespace ConnecteurEBP.Classes
 
         public ConfSendMail()
         {
-        }
 
+        }
     }
 }

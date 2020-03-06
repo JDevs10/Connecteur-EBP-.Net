@@ -1,381 +1,277 @@
-﻿using ConnecteurEBP.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ConnecteurEBP.Utilities
 {
-    public static class QueryHelper
-    {
-        #region SQL Queries
+  /// <summary>
+  /// Classe statique permettant de stocker toutes les requêtes SQL utilisées dans l'application
+  /// </summary>
+  public static class QueryHelper
+  {
+    #region SQLServer Queries
+    /// <summary>
+    /// Récupère tous les clients actifs avec leurs adresses
+    /// </summary>
+    public const string Customers_SQLServer = "SELECT Id, Name, MainInvoicingAddress_Address1 as Address, " +
+            "MainInvoicingAddress_ZipCode as ZipCode, MainInvoicingAddress_City as City, " +
+          "MainInvoicingAddress_CountryIsoCode as Country FROM Customer WHERE ActiveState = 0";
+    /// <summary>
+    /// Récupère le prochain identifiant des commandes
+    /// </summary>
+    public const string NextOrderId_SQLServer = "SELECT incValue FROM EbpSysAutoIncrement WHERE incName = 'SaleOrder¤NextId'";
 
-        public static string ListClients()
-        {
-            return "select sCliCode,sCliRaisonSoc,sCliAdresse1Ligne,sCliAdresse1CodePos,sCliAdresse1Ville,sCliAdresse1CodePay,sCliAdresse2Ligne," +
-  "sCliAdresse2CodePos,sCliAdresse2Ville,sCliAdresse2CodePay,sCliFraisPort,sCliModeReglement,sCliEscompte,sCliRemise,sCliDevise," +
-  "sCli_Escompte,sCli_RemiseProduits,sCli_RemiseServices,sCli_RemiseForfaits,sCli_Siret,codebarcf,IBAN0_Contenu,Bq0NomBanque from client";
-        }
+    public const string NextDeliveryId_SQLServer = "SELECT incValue FROM EbpSysAutoIncrement WHERE incName = 'DeliveryOrder¤NextId'";
+    /// <summary>
+    /// Récupère les 20 meilleurs clients classés par chiffre d'affaire
+    /// </summary>
+    public const string BestTop20CustomersBySales_SQLServer = "select top 20 c.Id, c.Name, sum(sd.AmountVatExcludedWithDiscount) Sales,  " +
+                         "c.MainInvoicingAddress_Address1 as Address, c.MainInvoicingAddress_ZipCode as ZipCode, " +
+                         "c.MainInvoicingAddress_City as City, c.MainInvoicingAddress_CountryIsoCode as Country" +
+                         " from customer c left outer join SaleDocument sd on c.Id = sd.CustomerId" +
+                         " group by c.Id, c.Name, c.MainInvoicingAddress_Address1, c.MainInvoicingAddress_ZipCode, " +
+                         "c.MainInvoicingAddress_City, c.MainInvoicingAddress_CountryIsoCode " +
+                         "order by Sales desc";
+    /// <summary>
+    /// Récupère tous les articles classés par par ordre alphabétique
+    /// </summary>
+    public const string Items_SQLServer = "SELECT Id, Caption, SalePriceVatIncluded, VatAmount, PurchasePrice FROM Item ORDER BY Caption asc";
+    /// <summary>
+    /// Récupère tous les modèles d'impression correspondant aux articles classés par ordre alphabétique
+    /// </summary>
+    public const string ItemReports_SQLServer = "SELECT Id, Label FROM EbpSysReport WHERE CategoryId LIKE 'EB27722D-470B-41B8-A97C-27A9EF332EAA' " +
+            "AND LevelId IN ('92E1BD21-4140-453D-892F-56B3896EAC41', 'dfd4abf9-2963-4f53-9032-72f543b6d343', '58b33e99-768c-41d8-be8e-081aa5655dc3', '8824ac9e-bd07-499b-8b9e-46cc6365b9b3', 'E5A45148-24BA-47f5-97DB-E5502E1DB492') ORDER BY Label asc";
+   
+    
+   public const string Factures_Ventes_SQLServer = " SELECT DocumentNumber,CustomerName,AmountVatExcludedWithDiscountAndShipping,VatAmount,AmountVatIncluded,DepositAmount,TotalDueAmount,CommitmentsBalanceDue FROM SaleDocument where DocumentNumber like 'FA%' order by DocumentNumber DESC";
 
-        public static string insert_client_GLN(ClientMini client)
-        {
-            return "update client set codebarcf='" + client.Cli_GLN + "' where sclicode='" + client.Cli_Code + "'";
-        }
+   public const string Client_BASE_X_EBP = "select ID_BASE_X,ID_EBP,Name from Customer,Client_BASE_X_EBP where Client_BASE_X_EBP.ID_EBP=Customer.Id";
 
-        public static string Client_codeEBp(string code)
-        {
-            return "SELECT sCliCode,codebarcf from client where sclicode='" + code + "'";
-        }
+   public const string createTable = "IF NOT EXISTS"+
+  " (  SELECT [name]"+
+      "FROM sys.tables"+
+     " WHERE [name] = 'Client_BASE_X_EBP'"+
+   ")"+
+   
+  " CREATE TABLE Client_BASE_X_EBP (  "+
+  "  ID INT PRIMARY KEY IDENTITY, " +
+   " ID_BASE_X VARCHAR(128), "+
+  " ID_EBP VARCHAR(128), " + 
+")";
 
-        public static string Client_codeGLN(string barcode, string code)
-        {
-            return "SELECT sCliCode,codebarcf from client where codebarcf='" + barcode + "'";
-        }
+   public const string createTableCommande = "IF NOT EXISTS" +
+" (  SELECT [name]" +
+"FROM sys.tables" +
+" WHERE [name] = 'commande_enregistrer'" +
+")" +
 
-        public static string get_client_export(string code)
-        {
-            return "SELECT sCliCode,CodeBarCF,sCliRaisonSoc,sCliAdresse1Ligne,sCliAdresse1CodePos,sCliAdresse1Ville,sCliAdresse1CodePay,sCli_Adresse1_NPAI,sCliAdresse2Ligne,sCliAdresse2CodePos,sCliAdresse2Ville,sCliAdresse2CodePay,sCli_Adresse2_NPAI,sCliType,sCliFraisPort, sCliModeReglement,sCliDevise,sCliCivilite,sCli_NoCompte,sCli_CodeRepr, sCli_GrilleTarifs,sCli_LienExterne,sCli_siret,BIC0_Banque,BIC0_Pays,BIC0_Localisation,BIC0_Branche,IBAN0_Pays,IBAN0_Controle,IBAN0_Contenu,Bq0NomBanque,Bq0AdrBanque,CB0_AdresseSuite,BIC1_Banque,BIC1_Pays,BIC1_Localisation,BIC1_Branche,IBAN1_Pays,IBAN1_Controle, IBAN1_Contenu,Bq1NomBanque,Bq1AdrBanque,CB1_AdresseSuite,BIC2_Banque,BIC2_Pays,BIC2_Localisation,BIC2_Branche,IBAN2_Pays,IBAN2_Controle,IBAN2_Contenu,Bq2NomBanque,Bq2AdrBanque,CB2_AdresseSuite,BIC3_Banque,BIC3_Pays,BIC3_Localisation,BIC3_Branche,IBAN3_Pays,IBAN3_Controle,IBAN3_Contenu,Bq3NomBanque,Bq3AdrBanque,CB3_AdresseSuite " +
-            "from client where sCliCode='" + code + "'";
-        }
+" CREATE TABLE commande_enregistrer (  " +
+"  ID INT PRIMARY KEY IDENTITY, " +
+" ID_Import VARCHAR(128), " +
+" ID_EBP VARCHAR(128), " +
+")";
 
-        public static string get_client_adresse_export(string code)
-        {
-            return "SELECT Adresse_Ligne,Adresse_CodePostal,Adresse_Ville,CodeDeb,Adresse_NPAI,bPrincipal,bFacturation,CodeInterne" +
-            " from adresses,pays where CodeTiers='" + code + "' and Adresse_CodePays=code";
-        }
+   public const string createPath = "IF NOT EXISTS" +
+" (  SELECT [name]" +
+"FROM sys.tables" +
+" WHERE [name] = 'Path_ImportPlanifier'" +
+")" +
 
-        public static string get_client_contact_export(string code)
-        {
-            return "SELECT sContact_Civilite,sContact_Interloc,sContact_Fonction  ,sContact_Nom ,sContact_Prenom ,sContact_Tel ,sContact_Fax  ,sContact_Portable ,sContact_EMail ,sContact_Url  , sContact_Password ,bPrincipal , bPrincipalLiv ,AdresseFacturation ,AdresseLivraison" +
-            " from contacts where CodeTiers='" + code + "'";
-        }
+" CREATE TABLE Path_ImportPlanifier (  " +
+" path VARCHAR(128), " +
+")";
 
-        public static string get_Clients_codebarre()
-        {
-            return "SELECT sCliCode,codebarcf from client";
-        }
+   public const string createTable_TachePlanifier = "IF NOT EXISTS" +
+" (  SELECT [name]" +
+"FROM sys.tables" +
+" WHERE [name] = 'TachePlanifier'" +
+")" +
 
-        public static string getClient(string id)
-        {
-            return "SELECT sCliCode,sCliRaisonSoc,sCliAdresse1Ligne,sCliAdresse1CodePos,sCliAdresse1Ville,sCliAdresse1CodePay,sCli_Adresse1_NPAI,sCliAdresse2Ligne,sCliAdresse2CodePos,sCliAdresse2Ville,sCliAdresse2CodePay,sCli_Adresse2_NPAI,sCliType,sCliNII,sCliFraisPort,sCliModeReglement,sCliEscompte,sCliRemise,bRemiseTTC,sCliDevise,sCliCivilite,sCliExemplairesPiec,sCli_NoCompte,sCli_CodeRepr,sCli_GrilleTarifs,sCli_ModeleDevis0,sCli_ModeleDevis1,sCli_ModeleCommande0,sCli_ModeleCommande1,sCli_ModeleBL0,sCli_ModeleBL1,sCli_ModeleFacture0,sCli_ModeleFacture1,sCli_DepotDefaut,sCli_LienExterne,sCli_Escompte,sCli_RemiseProduits,sCli_RemiseServices,sCli_RemiseForfaits,sCli_Siret,codebarcf,sCondRegl_NbJours," +
-                "sCondReglEchNbJour1,sCondReglEchNbJour2,sCondReglEchNbJour3,sCondReglEchNbJour4,sCondReglEchNbJour5,sCondReglEchNbJour6,sCondReglEchNbJour7,sCondReglEchNbJour8,sCondReglEchNbJour9," +
-                "sCondRegl_Net,sCondReglEchTypeEc1,sCondReglEchTypeEc2,sCondReglEchTypeEc3,sCondReglEchTypeEc4,sCondReglEchTypeEc5,sCondReglEchTypeEc6,sCondReglEchTypeEc7,sCondReglEchTypeEc8,sCondReglEchTypeEc9,sCondRegl_JourLe," +
-                "sCondReglEchJourLe1,sCondReglEchJourLe2,sCondReglEchJourLe3,sCondReglEchJourLe4,sCondReglEchJourLe5,sCondReglEchJourLe6,sCondReglEchJourLe7,sCondReglEchJourLe8,sCondReglEchJourLe9,sCondReglEchPource0,sCondReglEchPource1,sCondReglEchPource2,sCondReglEchPource3,sCondReglEchPource4,sCondReglEchPource5,sCondReglEchPource6,sCondReglEchPource7,sCondReglEchPource8,sCondReglEchPource9,b30jEquivalentMois,sCondReglEchb30jEq1,sCondReglEchb30jEq2,sCondReglEchb30jEq3,sCondReglEchb30jEq4,sCondReglEchb30jEq5,sCondReglEchb30jEq6,sCondReglEchb30jEq7,sCondReglEchb30jEq8,sCondReglEchb30jEq9" +
-                " from client where codebarcf='" + id + "'";
-        }
+" CREATE TABLE TachePlanifier (  " +
+" import_commande BIT, " +
+" import_bonlivraison BIT, " +
+" import_facture BIT, " +
+" export_commande BIT, " +
+" export_bonlivraison BIT, " +
+" export_facture BIT, " +
+")";
 
-        public static string getArticle(string id)
-        {
-            return "SELECT Code,designation,PxVenteHT0,Colisage,typebarcode,poidsUnite from ARTICLE where barcode='" + id + "'";
-        }
+   public const string getTachePlanifier = "select * from TachePlanifier";
 
-        public static string getStockId()
-        {
-            return "select DE_NO FROM F_Depot where DE_Principal = 1";
-        }
+   public const string deleteImportPlanifier = "delete from Path_ImportPlanifier";
 
-        public static string getNumLivraison(string ct_num)
-        {
-            return "select LI_NO FROM F_LIVRAISON where CT_NUM = '" + ct_num + "' and LI_PRINCIPAL=1";
-        }
+   public const string deleteTachePlanifier = "delete from TachePlanifier";
 
-        public static string deleteCommande(string numCommande)
-        {
-            return "delete from piece where numeroprefixe='CC' and numeronumero=" + numCommande + "";
-            //return "delete from piece where numeroprefixe='DV' and numeronumero=" + numCommande + "";
-        }
+   public const string selectPath = "select path from Path_ImportPlanifier";
 
-        public static string getGAMME(int type, string REF_Article)
-        {
-            return "select AG_NO from F_artgamme where AG_TYPE=" + type + " and AR_REF='" + REF_Article + "'";
-        }
+   public const string VerifierDeletedCommande = "delete from commande_enregistrer";
 
-        public static string UpdateCommande(Client client, Order order)
-        {
-            return "update piece set " +
-     "CDate = '" + order.DateCommande + "'," +
-     "TiersRaisonSoc = '" + client.sCliRaisonSoc + "'," +
-     "TiersAdresse1Ligne = '" + client.sCliAdresse1Ligne + "'," +
-     "TiersAdresse1CodePo = '" + client.sCliAdresse1CodePos + "',TiersAdresse1Ville = '" + client.sCliAdresse1Ville + "'," +
-     "TiersAdresse1CodePa = " + client.sCliAdresse1CodePay + "," +
-     "Tiers_Adresse1_NPAI = " + client.sCli_Adresse1_NPAI + "," +
-     "TiersAdresse2Ligne = '" + order.adresse + "'," +
-     "TiersAdresse2CodePo = '" + order.codepostale + "'," +
-     "TiersAdresse2Ville = '" + order.ville + "'," +
-     "TiersAdresse2CodePa = " + order.pays + "," +
-     "TiersNII = '" + client.sCliNII + "'," +
-     "TiersFraisPort = '" + client.sCliFraisPort + "'," +
-     "TiersModeReglement = '" + client.sCliModeReglement + "'," +
-     "SPieceSCondReglCode = '" + client.sCliModeReglement + "'," +
-     "sPieceSCondReglNbj0 = '" + client.sCondRegl_NbJours + "'," +
-     "TiersDevise = '" + client.sCliDevise + "'," +
-     "TiersCivilite = '" + client.sCliCivilite + "'," +
-     "TiersExemplairesPie = '" + client.sCliExemplairesPiec + "'," +
-     "Tiers_NoCompte = '" + client.sCli_NoCompte + "'," +
-     "Tiers_CodeRepr = '" + client.sCli_CodeRepr + "'," +
-      "Tiers_GrilleTarifs = '" + client.sCli_GrilleTarifs + "'," +
-      "Tiers_ModeleDevis0 = " + client.sCli_ModeleDevis0 + "," +
-      "Tiers_ModeleDevis1 = " + client.sCli_ModeleDevis1 + "," +
-      "TiersModeleCommande0 = " + client.sCli_ModeleCommande0 + "," +
-      "TiersModeleCommande1 = " + client.sCli_ModeleCommande1 + "," +
-      "Tiers_ModeleBL0 = " + client.sCli_ModeleBL0 + "," +
-      "Tiers_ModeleBL1 = " + client.sCli_ModeleBL1 + "," +
-      "Tiers_ModeleFacture0 = " + client.sCli_ModeleFacture0 + "," +
-      "Tiers_ModeleFacture1=  " + client.sCli_ModeleFacture1 + "   ," +
-     "Tiers_DepotDefaut=   '" + client.sCli_DepotDefaut + "'  ," +
-     "Tiers_LienExterne=  '" + client.sCli_LienExterne + "'   ," +
-     "Tiers_Escompte=  " + client.sCli_Escompte + "   ," +
-     "TiersRemsieProduits=  " + client.sCli_RemiseProduits + "   ," +
-     "TiersRemiseServices=  " + client.sCli_RemiseServices + "   ," +
-     "TiersRemiseForfaits=  " + client.sCli_RemiseForfaits + "   ," +
-     "Tiers_Siret=  '" + client.sCli_Siret + "'   ," +
-     "TauxTVA1=    '20' ," +
-     "TauxTVA2=   '5,5'  ," +
-    " NetAPayer=  '" + order.MontantTotal + "'   ," +
-     "reference=   '" + order.Reference + "'   ," +
-     "SPiece_codetable=  '" + order.NumCommande + "'   ," +
-    " dateLivraison=  '" + order.DateLivraison + "'   ," +
-     "CodeUtilisateur=   'ADM'  ," +
-     "SPieceDicoVersionCr=  6419   ," +
-     "SPieceDicoVersionCh=  6419   ," +
-     "SPiece_bOldArrondi=   1  ," +
-    " SPiecebOlCalculDeee=  1   ," +
-    " parite=   1  ," +
-    " ContactLiv_Nom='" + order.nom_contact + "'" +
+   public const string createTriger1 = "Create trigger tr1 on SaleDocument "+
+"after insert "+
+"as "+
+"update SaleDocument set Reference = REPLACE ( reference , 'Document importé n° ' , '' ) "+
+"where DocumentNumber in (select DocumentNumber from inserted) and (select reference from inserted)is not null "+
+"INSERT INTO commande_enregistrer(ID_Import,ID_EBP)  select reference, DocumentNumber from inserted where (select reference from inserted)is not null ";
 
-        " where NumeroPrefixe='DV' and numeronumero=" + order.Id + "";
-        }
-
-        public static string insertCommandeVide(Order order)
-        {
-            return "insert into piece(CType, NumeroPrefixe, NumeroNumero, CDate   ,   TiersCode ,SPieceSCondReglNbJ0 ,SPieceSCondReglNbJ1, SPieceSCondReglNbJ2 ,SPieceSCondReglNbJ3" +
-",SPieceSCondReglNbJ4 ,SPieceSCondReglNbJ5, SPieceSCondReglNbJ6 ,SPieceSCondReglNbJ7 ,SPieceSCondReglNbJ8 ,SPieceSCondReglNbJ9, SPieceSCondReglTyp0, " +
-"SPieceSCondReglTyp1 ,SPieceSCondReglTyp2 ,SPieceSCondReglTyp3 ,SPieceSCondReglTyp4, SPieceSCondReglTyp5, SPieceSCondReglTyp6, SPieceSCondReglTyp7, " +
-"SPieceSCondReglTyp8 ,SPieceSCondReglTyp9 ,SPieceSCondReglJou0 ,SPieceSCondReglJou1 ,SPieceSCondReglJou2, SPieceSCondReglJou3 ,SPieceSCondReglJou4 " +
-",SPieceSCondReglJou5, SPieceSCondReglJou6 ,SPieceSCondReglJou7, SPieceSCondReglJou8, SPieceSCondReglJou9 ,SPieceSCondReglPou0, SPieceSCondReglPou1, " +
-"SPieceSCondReglPou2 ,SPieceSCondReglPou3, SPieceSCondReglPou4 ,SPieceSCondReglPou5 ,SPieceSCondReglPou6 ,SPieceSCondReglPou7, SPieceSCondReglPou8 " +
-",SPieceSCondReglPou9 ,SPieceSCondReglb300, SPieceSCondReglb301, SPieceSCondReglb302 ,SPieceSCondReglb303 ,SPieceSCondReglb304 " +
-",SPieceSCondReglb305,SPieceSCondReglb306, SPieceSCondReglb307 ,SPieceSCondReglb308,SPieceSCondReglb309," +
-"SPieceSCondReglCode) " +
-"SELECT CType, NumeroPrefixe, " + order.Id + ", CDate   ,   TiersCode , SPieceSCondReglNbJ0 ,SPieceSCondReglNbJ1, SPieceSCondReglNbJ2 ,SPieceSCondReglNbJ3 " +
-",SPieceSCondReglNbJ4 ,SPieceSCondReglNbJ5, SPieceSCondReglNbJ6 ,SPieceSCondReglNbJ7 ,SPieceSCondReglNbJ8 ,SPieceSCondReglNbJ9, SPieceSCondReglTyp0, " +
-"SPieceSCondReglTyp1 ,SPieceSCondReglTyp2 ,SPieceSCondReglTyp3 ,SPieceSCondReglTyp4, SPieceSCondReglTyp5, SPieceSCondReglTyp6, SPieceSCondReglTyp7, " +
-"SPieceSCondReglTyp8 ,SPieceSCondReglTyp9 ,SPieceSCondReglJou0 ,SPieceSCondReglJou1 ,SPieceSCondReglJou2, SPieceSCondReglJou3 ,SPieceSCondReglJou4 " +
-",SPieceSCondReglJou5, SPieceSCondReglJou6 ,SPieceSCondReglJou7, SPieceSCondReglJou8, SPieceSCondReglJou9 ,SPieceSCondReglPou0, SPieceSCondReglPou1, " +
-"SPieceSCondReglPou2 ,SPieceSCondReglPou3, SPieceSCondReglPou4 ,SPieceSCondReglPou5 ,SPieceSCondReglPou6 ,SPieceSCondReglPou7, SPieceSCondReglPou8 " +
-",SPieceSCondReglPou9 ,SPieceSCondReglb300, SPieceSCondReglb301, SPieceSCondReglb302 ,SPieceSCondReglb303 ,SPieceSCondReglb304 " +
-",SPieceSCondReglb305,SPieceSCondReglb306, SPieceSCondReglb307 ,SPieceSCondReglb308,SPieceSCondReglb309," +
-"SPieceSCondReglCode   FROM PIECE where numeroprefixe='DV' and numeronumero=10";
-        }
+      public const string createTriger2 = "Create trigger tr2 on SaleDocument "+
+"after delete "+
+"as "+
+"DELETE FROM commande_enregistrer "+
+"WHERE ID_EBP in (Select DocumentNumber from deleted )";
 
 
-        public static string insertCommande(Client client, Order order)
-        {
-            return "SET TRUENULLCREATE=OFF; Insert into piece " +
-     "(CType,NumeroPrefixe,NumeroNumero,CDate,TiersCode,TiersRaisonSoc,TiersAdresse1Ligne,TiersAdresse1CodePo,TiersAdresse1Ville," +
-     "TiersAdresse1CodePa,Tiers_Adresse1_NPAI,TiersAdresse2Ligne,TiersAdresse2CodePo,TiersAdresse2Ville," +
-     "TiersAdresse2CodePa,TiersNII,TiersFraisPort,TiersModeReglement,SPieceSCondReglCode,sPieceSCondReglNbj0," +
-     "SPieceSCondReglNbJ1, SPieceSCondReglNbJ2, SPieceSCondReglNbJ3 ,SPieceSCondReglNbJ4 ,SPieceSCondReglNbJ5, SPieceSCondReglNbJ6, SPieceSCondReglNbJ7, SPieceSCondReglNbJ8, SPieceSCondReglNbJ9, " +
-     "TiersDevise,TiersCivilite,TiersExemplairesPie,Tiers_NoCompte,Tiers_CodeRepr," +
-     " Tiers_GrilleTarifs,Tiers_ModeleDevis0,Tiers_ModeleDevis1,TiersModeleCommande0,TiersModeleCommande1,Tiers_ModeleBL0,Tiers_ModeleBL1,Tiers_ModeleFacture0,Tiers_ModeleFacture1," +
-     "Tiers_DepotDefaut,Tiers_LienExterne,Tiers_Escompte,TiersRemsieProduits,TiersRemiseServices,TiersRemiseForfaits,Tiers_Siret,TauxTVA1,TauxTVA2,NetAPayer,reference,SPiece_codetable,dateLivraison," +
-     "CodeUtilisateur,SPieceDicoVersionCr,SPieceDicoVersionCh,SPiece_bOldArrondi,SPiecebOlCalculDeee,parite,ContactLiv_Nom," +
-     "SPieceSCondReglTyp0,SPieceSCondReglTyp1,SPieceSCondReglTyp2,SPieceSCondReglTyp3,SPieceSCondReglTyp4,SPieceSCondReglTyp5,SPieceSCondReglTyp6,SPieceSCondReglTyp7,SPieceSCondReglTyp8,SPieceSCondReglTyp9,SPieceSCondReglJou0," +
-     " SPieceSCondReglJou1, SPieceSCondReglJou2 ,SPieceSCondReglJou3, SPieceSCondReglJou4, SPieceSCondReglJou5, SPieceSCondReglJou6, SPieceSCondReglJou7, SPieceSCondReglJou8 ,SPieceSCondReglJou9, " +
-        "SPieceSCondReglPou0 ,SPieceSCondReglPou1, SPieceSCondReglPou2, SPieceSCondReglPou3, SPieceSCondReglPou4, SPieceSCondReglPou5 ,SPieceSCondReglPou6 ,SPieceSCondReglPou7, SPieceSCondReglPou8, SPieceSCondReglPou9 ," +
-        "SPieceSCondReglb300, SPieceSCondReglb301 ,SPieceSCondReglb302, SPieceSCondReglb303 ,SPieceSCondReglb304, SPieceSCondReglb305, SPieceSCondReglb306, SPieceSCondReglb307, SPieceSCondReglb308, SPieceSCondReglb309,flag" +
-     ") " +
-     "values" +
-     //Inserer une bon de commande : '','CC' 
-     //Inserer une bon de commande : '','DV'
-     "('','CC'," + order.Id + ",'" + order.DateCommande + "','" + client.sCliCode + "','" + client.sCliRaisonSoc + "','" + client.sCliAdresse1Ligne + "','" + client.sCliAdresse1CodePos + "','" + client.sCliAdresse1Ville + "'," +
-     "" + client.sCliAdresse1CodePay + "," + client.sCli_Adresse1_NPAI + ",'" + order.adresse + "','" + order.codepostale + "','" + order.ville + "'," +
-     "" + order.pays + ",'" + client.sCliNII + "','" + client.sCliFraisPort + "','" + client.sCliModeReglement + "','" + client.sCliModeReglement + "','" + client.sCondRegl_NbJours + "'," +
-     "'" + client.sCondReglEchNbJour1 + "','" + client.sCondReglEchNbJour2 + "','" + client.sCondReglEchNbJour3 + "','" + client.sCondReglEchNbJour4 + "','" + client.sCondReglEchNbJour5 + "','" + client.sCondReglEchNbJour6 + "','" + client.sCondReglEchNbJour7 + "','" + client.sCondReglEchNbJour8 + "','" + client.sCondReglEchNbJour9 + "'," +
-     "'" + client.sCliDevise + "','" + client.sCliCivilite + "','" + client.sCliExemplairesPiec + "','" + client.sCli_NoCompte + "','" + client.sCli_CodeRepr + "'," +
-     " '" + client.sCli_GrilleTarifs + "'," + client.sCli_ModeleDevis0 + "," + client.sCli_ModeleDevis1 + "," + client.sCli_ModeleCommande0 + "," + client.sCli_ModeleCommande1 + "," + client.sCli_ModeleBL0 + "," + client.sCli_ModeleBL1 + "," + client.sCli_ModeleFacture0 + "," + client.sCli_ModeleFacture1 + "," +
-     "'" + client.sCli_DepotDefaut + "','" + client.sCli_LienExterne + "'," + client.sCli_Escompte + "," + client.sCli_RemiseProduits + "," + client.sCli_RemiseServices + "," + client.sCli_RemiseForfaits + ",'" + client.sCli_Siret + "','20','5,5','" + order.MontantTotal + "','" + order.Reference + "' ,'" + order.NumCommande + "','" + order.DateLivraison + "'," +
-     "'ADM',6419,6419,1,1,1,'" + order.nom_contact + "'," +
-     "" + client.sCondRegl_Net + "," + client.sCondReglEchTypeEc1 + "," + client.sCondReglEchTypeEc2 + "," + client.sCondReglEchTypeEc3 + "," + client.sCondReglEchTypeEc4 + "," + client.sCondReglEchTypeEc5 + "," + client.sCondReglEchTypeEc6 + "," + client.sCondReglEchTypeEc7 + "," + client.sCondReglEchTypeEc8 + "," + client.sCondReglEchTypeEc9 + "," + client.sCondRegl_JourLe + "," +
-     "" + client.sCondRegl_JourLe1 + "," + client.sCondRegl_JourLe2 + "," + client.sCondRegl_JourLe3 + "," + client.sCondRegl_JourLe4 + "," + client.sCondRegl_JourLe5 + "," + client.sCondRegl_JourLe6 + "," + client.sCondRegl_JourLe7 + "," + client.sCondRegl_JourLe8 + "," + client.sCondRegl_JourLe9 + "," + client.sCondReglEchPource0 + "," + client.sCondReglEchPource1 + "," +
-      "" + client.sCondReglEchPource2 + "," + client.sCondReglEchPource3 + "," + client.sCondReglEchPource4 + "," + client.sCondReglEchPource5 + "," + client.sCondReglEchPource6 + "," + client.sCondReglEchPource7 + "," + client.sCondReglEchPource8 + "," + client.sCondReglEchPource9 + ",'" + client.b30jEquivalentMois + "','" + client.sCondReglEchb30jEq1 + "','" + client.sCondReglEchb30jEq2 + "'," +
-       "'" + client.sCondReglEchb30jEq3 + "','" + client.sCondReglEchb30jEq4 + "','" + client.sCondReglEchb30jEq5 + "','" + client.sCondReglEchb30jEq6 + "','" + client.sCondReglEchb30jEq7 + "','" + client.sCondReglEchb30jEq8 + "','" + client.sCondReglEchb30jEq9 + "',char(0)" +
+   public const string EbpSysGenericImportSettings = "IF NOT EXISTS"+
+  " (  SELECT name"+
+   "   FROM EbpSysGenericImportSettings"+
+   "   WHERE name = 'Commandes2'"+
+   ")"+
+"insert into EbpSysGenericImportSettings"+
+"(sysCreatedDate,sysCreatedUser,sysModifiedDate,sysModifiedUser,name,categoryId,export,formatId,serializedEntity)"+
+"values('20121223 23:59:59.99','ADM','20121223 23:59:59.99','ADM','Commandes2','D22C51B6-5E65-45D7-A0E8-3B0A8348F16D','false','04C5697F-B974-4170-8A03-20D295C9487C','null')";
 
-     ") ";
-        }
+   public const string EbpSysGenericImportSettings2 = "IF NOT EXISTS" +
+" (  SELECT name" +
+"   FROM EbpSysGenericImportSettings" +
+"   WHERE name = 'import_bonLivraison'" +
+")" +
+"insert into EbpSysGenericImportSettings" +
+"(sysCreatedDate,sysCreatedUser,sysModifiedDate,sysModifiedUser,name,categoryId,export,formatId,serializedEntity)" +
+"values('20121223 23:59:59.99','ADM','20121223 23:59:59.99','ADM','import_bonLivraison','5a1aa132-7002-4cd7-8ec9-71c03c0343ae','false','04C5697F-B974-4170-8A03-20D295C9487C','null')";
 
-        public static string insertLigneCommande(Client client, Order order, OrderLine line, int a, int b)
-        {
-            //string p = "#";
-            string[] tab = line.descriptionArticle.Split('#'); ;
-            string info_palette_objet = "";
+   public const string EbpSysGenericImportSettings_facture = "IF NOT EXISTS" +
+" (  SELECT name" +
+"   FROM EbpSysGenericImportSettings" +
+"   WHERE name = 'import_facture'" +
+")" +
+"insert into EbpSysGenericImportSettings" +
+"(sysCreatedDate,sysCreatedUser,sysModifiedDate,sysModifiedUser,name,categoryId,export,formatId,serializedEntity)" +
+"values('20150312 23:59:59.99','ADM','20150312 23:59:59.99','ADM','import_facture','ed7fcd30-7018-49c4-a1fc-622f0dee675c','false','04c5697f-b974-4170-8a03-20d295c9487c','null')";
 
-            if (tab.Length == 2)
-            {
-                line.descriptionArticle = tab[0];
-                info_palette_objet = tab[1];
-            }
+   //public const string UpdateEbpSysGenericImport = @"update EbpSysGenericImportSettings set serializedEntity=(SELECT * FROM   OPENROWSET(BULK '" + Environment.CurrentDirectory+ @"\..\Resources\Monfichier.xml', SINGLE_CLOB) as T) where name='Commandes' and serializedEntity='null'";
 
-            if (a == 1)
-            {
-                return "Insert Into ligne " +
-         "(TypeMouvement,PiecePrefixe,PieceNumero,TypeLigne,CodeArt,Libelle,CDate,Quantite,PxUnitBrut,CodeTiers,CodeRepres,DateLiv,QteCommandee,IP,Commentaire,CodeTVA,Colis,Objet,Nombre,FormuleCalcul,NombreColis)" +
-         " values " +
-         // "('','DV'," + order.Id + ",''
-         "('','CC'," + order.Id + ",'','" + line.article.code + "','" + line.descriptionArticle + "' ,'" + order.DateCommande + "'," + line.Quantite + ",'" + line.PrixNetHT + "','" + client.sCliCode + "','" + client.sCli_CodeRepr + "','" + line.DateLivraison + "'," + line.Quantite + "," + line.NumLigne + ",'" + line.codeAcheteur + "#" + line.codeFournis + "','','" + line.article.Colisage + "','" + info_palette_objet + "','" + (float.Parse(line.Quantite, CultureInfo.InvariantCulture.NumberFormat) / int.Parse(line.article.Colisage)).ToString() + "','" + line.article.Colisage + "','" + (float.Parse(line.Quantite, CultureInfo.InvariantCulture.NumberFormat) / int.Parse(line.article.Colisage)).ToString() + "')";
-            }
-            else
-            {
-                return "Insert Into ligne " +
-        "(TypeMouvement,PiecePrefixe,PieceNumero,TypeLigne,CodeArt,Libelle,CDate,Quantite,PxUnitBrut,CodeTiers,CodeRepres,DateLiv,QteCommandee,IP,Commentaire,CodeTVA,Colis,Objet,Nombre,FormuleCalcul,NombreColis)" +
-        " values " +
-        "('','CC'," + order.Id + ",'','" + line.article.code + "','" + line.descriptionArticle + "','" + order.DateCommande + "'," + line.Quantite + ",'" + line.PrixNetHT + "','" + client.sCliCode + "','" + client.sCli_CodeRepr + "','" + line.DateLivraison + "'," + line.Quantite + "," + line.NumLigne + ",'" + line.codeAcheteur + "#" + line.codeFournis + "','','" + line.article.Colisage + "','" + info_palette_objet + "','" + (float.Parse(line.Quantite, CultureInfo.InvariantCulture.NumberFormat) / int.Parse(line.article.Colisage)).ToString() + "','" + line.article.Colisage + "','" + (float.Parse(line.Quantite, CultureInfo.InvariantCulture.NumberFormat) / int.Parse(line.article.Colisage)).ToString() + "')";
+   public static string insertClient(string id_X, string id_EBP)
+   {
+       return "INSERT INTO Client_BASE_X_EBP (ID_BASE_X,ID_EBP) VALUES ('" + id_X + "','" + id_EBP + "')";
+   }
+            
+   public static string insertCommande(string ID_Import,string ID_EBP)
+   {
+       return "INSERT INTO commande_enregistrer (ID_Import,ID_EBP) VALUES ('" + ID_Import + "','" + ID_EBP + "')";
+   }
 
-            }
-        }
-        public static string insertLignePalette(Order order, int count, string info)
-        {
+   public static string ExistCustomer(string id)
+   {
+       return "SELECT Id FROM Customer where Id='" + id + "'";
+   }
+   
+      public static string testExisteClient(string id)
+   {
+       return "SELECT ID_BASE_X FROM Client_BASE_X_EBP where ID_EBP='" + id + "'";
+   }
+      
+   public static string returnClient(string id)
+   {
+       return "SELECT ID_EBP FROM Client_BASE_X_EBP where ID_BASE_X='" + id + "'";
+   }
 
-            return "Insert Into ligne " +
-     "(TypeMouvement,PiecePrefixe,PieceNumero,IP,TypeLigne,Libelle)" +
-     " values " +
-     "('','CC'," + order.Id + "," + count + ",'','" + info + "' )";
+   public static string deleteClient(string idEBP,string id)
+   {
+       return "delete FROM Client_BASE_X_EBP where ID_EBP='"+idEBP+"' and ID_BASE_X='" + id + "'";
+   }
 
+   public static string ModifierClient(string oldIdEBP, string oldIdGNL, string newIdEBP, string newIdGNL)
+   {
+       return "update Client_BASE_X_EBP set ID_EBP='" + newIdEBP + "' , ID_BASE_X='" + newIdGNL + "'  where ID_EBP='" + oldIdEBP + "' and ID_BASE_X='" + oldIdGNL + "'";
+   }
 
-        }
+   public static string updateClient(string IdEBP, string IdGNL)
+   {
+       return "update Client_BASE_X_EBP set ID_BASE_X='" + IdGNL + "'  where ID_EBP='" + IdEBP + "'";
+   }
 
+   public static string returnArticle(string id)
+   {
+       return "SELECT ID_EBP FROM Article_BASE_X_EBP where ID_BASE_X='" + id + "'";
+   }
 
-        public static string Lists_Commandes()
-        {
-            return "select piece.NumeroPrefixe,piece.NumeroNumero,piece.cdate,piece.TiersCode,client.codebarcf,piece.TiersAdresse2Ligne,piece.TiersAdresse2CodePo,piece.TiersAdresse2Ville,piece.TiersAdresse2CodePa,piece.TiersDevise,piece.NetAPayer,piece.DateLivraison,piece.SPiece_CodeTable,piece.ContactLiv_Nom from piece as piece,client as client where piece.tierscode=client.sclicode and NumeroPrefixe='CC' order by numeronumero";
-        }
+   public static string returnArticleCodeBarre(string codeBarre)
+   {
+       return "select Id from Item where barcode='" + codeBarre + "'";
+   }
 
-        public static string LignesDesCommandes(string NumeroNumero)
-        {
-            return "SELECT ligne.ip,article.barCode,ligne.libelle,ligne.quantite,ligne.PxUnitBrut,ligne.MontantNetHT,ligne.DateLiv,ligne.commentaire FROM ligne as ligne,article as article where ligne.codeArt = article.code and ligne.PiecePrefixe='CC' and ligne.PieceNumero=" + NumeroNumero + "";
-        }
+   public static string returnNomClient(string id)
+   {
+       return "select Name from Customer where Id='" + id + "'";
+   }
 
+   public static string TestClientAdressFacturation(string id)
+   {
+       return "select MainDeliveryAddress_ZipCode,MainDeliveryAddress_City,MainDeliveryAddress_CountryIsoCode from Customer where Id='" + id + "'";
+   }
 
+   public static string returnCommande(string id)
+   {
+       return "SELECT ID_EBP FROM commande_enregistrer where ID_Import='" + id + "'";
+   }
 
-        public static string SelectPays(string code)
-        {
-            return "SELECT code from pays where CodeDEB='" + code + "'";
-        }
+   public static string VerifierCommande(string id)
+   {
+       return "SELECT reference FROM SaleDocument where REPLACE ( REPLACE ( reference , 'Document importé n° ' , '' ),'(prix article différent)','')='" + id + "'";
+   }
 
-        public static string CodeDEB_Pays(string code)
-        {
-            return "SELECT CodeDEB from pays where code=" + code + "";
-        }
+   public static string VerifierPrixArticle(string id)
+   {
+       return "select SalePriceVatExcluded from item where id='"+id+"'";
+   }
 
+   // *******************************************************************************************************
 
-        public static string MaxNumPiece()
-        {
-            return "SELECT Max(NumeroNumero) FROM PIECE where NumeroPrefixe='CC'";
-            //return "SELECT Max(NumeroNumero) FROM PIECE where NumeroPrefixe='DV'";
-        }
+   public static string getFactureClient(string clientId)
+   {
+       return "select * from saledocument where DocumentType=2 and customerId='" + clientId + "'";
+   }
 
-        public static string get_NumPiece_SPiece_codeTable(string num)
-        {
-            return "SELECT NumeroNumero FROM PIECE WHERE SPiece_codetable='" + num + "'";
-        }
+   public static string getListCommandes()
+   {
+       return "select * from saledocument where DocumentType=8";
+   }
 
-        public static string get_NumPiece_Motif(string num)
-        {
-            return "SELECT DO_PIECE FROM F_DOCENTETE WHERE DO_MOTIF='" + num + "'";
-        }
+   public static string getBonLivraisonClient(string clientId)
+   {
+       return "select * from saledocument where DocumentType=6 and customerId='" + clientId + "'";
+   }
 
-        public static string get_Next_NumPiece_BonCommande()
-        {
-            return "SELECT DC_PIECE FROM F_DOCCURRENTPIECE WHERE DC_IDCOL=1 and DC_SOUCHE=0";
-        }
+   public static string getDocumentLine(string factureid)
+   {
+       return "select * from saledocumentline where DocumentId='" + factureid + "' and linetype!=9";
+   }
 
-        public static string ListFacturesClient(string client)
-        {
-            return "SELECT NumeroPrefixe,NumeroNumero,CDate,TiersCode,TiersRaisonSoc,TiersAdresse1Ligne,TiersAdresse1CodePo,TiersAdresse1Ville," +
-                "TiersAdresse1CodePa,TiersAdresse2Ligne,TiersAdresse2CodePo,TiersAdresse2Ville,TiersAdresse2CodePa,TiersFraisPort,TiersModeReglement," +
-     "TiersEscompte,TiersRemise,TiersDevise,TiersCivilite,Tiers_Escompte,TiersRemsieProduits,TiersRemiseServices,TiersRemiseForfaits,Tiers_Siret,TotalVolume," +
-         "TotalPoids,TotalColis ,BaseTVA0,BaseTVA1,BaseTVA2,BaseTVA3,BaseTVA4,BaseTVA5,BaseTVA6,BaseTVA7,BaseTVA8,BaseTVA9,TauxTVA0,TauxTVA1,TauxTVA2,TauxTVA3," +
-     "TauxTVA4,TauxTVA5,TauxTVA6,TauxTVA7,TauxTVA8,TauxTVA9,MntTVA0,MntTVA1,MntTVA2, MntTVA3,MntTVA4, MntTVA5, MntTVA6, MntTVA7,  MntTVA8,MntTVA9, Acompte, BrutHT ," +
-     "TotalBrutTTC, NetAPayer, FraisPort , FraisSuppl,DateLivraison,MontantEscompte, MontantRemise , MontantRemiseTTC,DelaiLiv,TotalPoidsNet, UnitePoids ," +
-     "EscompteGlobal, Contact_Civilite, Contact_Fonction , Contact_Nom, Contact_Prenom, Contact_Tel    , Contact_Fax , Contact_Portable,Contact_EMail ,     " +
-     "Contact_Url  , ContactLiv_Civilite, ContactLiv_Fonction , ContactLiv_Nom  , ContactLiv_Prenom , ContactLiv_Tel    ,   ContactLiv_Fax    ,   " +
-     "ContactLiv_Portable,  ContactLiv_EMail   , ContactLiv_Url, IDPaiement ,ModeTransport ,NbArticles   ,   SPieceCodeModeRegtP,SPiece_CodeTable, reference,g.dateech FROM PIECE p LEFT join gecheance g on p.NumeroNumero  = g.piecenumero where p.NumeroPrefixe LIKE 'F%' and p.ctype='' and p.TiersCode='" + client + "'";
-        }
+   public static string returnEANClient(string id)
+   {
+       return "SELECT ID_BASE_X FROM Client_BASE_X_EBP where ID_EBP='" + id + "'";
+   }
 
-        public static string getLignes(string prefixe, string prefixenumero)
-        {
-            return "select line.PieceNumero,line.IP,line.CodeArt,line.Libelle,line.CDate,line.Quantite,line.PxUnitBrut,line.PxUnitBrutTTC,line.TauxRemise,line.CodeTiers,line.PrixAchat,line.Volume,line.Poids,line.Colis,line.MontantBrutHT,line.MontantBrutTTC,line.MontantNetHT,line.MontantNetTTC,line.VolumeTotal,line.PoidsTotal,line.NombreColis,line.DateLiv,line.PoidsNet,line.PoidsTotalNet,line.Devise,art.barCode from ligne line, article art where pieceprefixe = '" + prefixe + "' and Typemouvement = '' and CodeArt <> '' and piecenumero='" + prefixenumero + "' and line.CodeArt = art.Code";
-        }
+   public static string returnEANArticle(string id)
+   {
+       return "select barcode from Item where Id='" + id + "'";
+   }
 
-        public static string ListBonLivraison(string client)
-        {
-            return "SELECT NumeroPrefixe,NumeroNumero,CDate,TiersCode,TiersRaisonSoc,TiersAdresse1Ligne,TiersAdresse1CodePo,TiersAdresse1Ville," +
-                "TiersAdresse1CodePa,TiersAdresse2Ligne,TiersAdresse2CodePo,TiersAdresse2Ville,TiersAdresse2CodePa,TiersFraisPort,TiersModeReglement," +
-     "TiersEscompte,TiersRemise,TiersDevise,TiersCivilite,Tiers_Escompte,TiersRemsieProduits,TiersRemiseServices,TiersRemiseForfaits,Tiers_Siret,TotalVolume," +
-         "TotalPoids,TotalColis ,BaseTVA0,BaseTVA1,BaseTVA2,BaseTVA3,BaseTVA4,BaseTVA5,BaseTVA6,BaseTVA7,BaseTVA8,BaseTVA9,TauxTVA0,TauxTVA1,TauxTVA2,TauxTVA3," +
-     "TauxTVA4,TauxTVA5,TauxTVA6,TauxTVA7,TauxTVA8,TauxTVA9,MntTVA0,MntTVA1,MntTVA2, MntTVA3,MntTVA4, MntTVA5, MntTVA6, MntTVA7,  MntTVA8,MntTVA9, Acompte, BrutHT ," +
-     "TotalBrutTTC, NetAPayer, FraisPort , FraisSuppl,DateLivraison,MontantEscompte, MontantRemise , MontantRemiseTTC,DelaiLiv,TotalPoidsNet, UnitePoids ," +
-     "EscompteGlobal, Contact_Civilite, Contact_Fonction , Contact_Nom, Contact_Prenom, Contact_Tel    , Contact_Fax , Contact_Portable,Contact_EMail ,     " +
-     "Contact_Url  , ContactLiv_Civilite, ContactLiv_Fonction , ContactLiv_Nom  , ContactLiv_Prenom , ContactLiv_Tel    ,   ContactLiv_Fax    ,   " +
-     "ContactLiv_Portable,  ContactLiv_EMail   , ContactLiv_Url, IDPaiement ,ModeTransport ,NbArticles   ,   SPieceCodeModeRegtP,SPiece_CodeTable FROM PIECE where NumeroPrefixe = 'BL'  and ctype='' and TiersCode='" + client + "'";
-        }
+   public static string getCommandeFacture(string id)
+   {
+       return "SELECT documentnumber,REPLACE ( REPLACE ( reference , 'Document importé n° ' , '' ),'(prix article différent)',''),documentdate from saledocument  where transfereddocumentid='" + id + "' and documentType=8";
+   }
 
-        public static string getModeTransport(string code)
-        {
-            return "select libelle from MODETRANSPORT where code=" + code + "";
-        }
+   public static string getBonLivraisonFacture(string id)
+   {
+       return "SELECT documentdate from saledocument  where transfereddocumentid='" + id + "' and documentType=6";
+   }
 
-        // ******************************************************************************************
-
-        public static string getDevise(string codeIso)
-        {
-            return "select CBINDICE from P_DEVISE where D_CODEISO='" + codeIso + "'";
-        }
-
-        public static string getDeviseIso(string code)
-        {
-            return "select D_CODEISO from P_DEVISE where CBINDICE=" + code + "";
-        }
-
-        public static string getListCommandes()
-        {
-            return "SELECT doc.DO_PIECE, cli.CT_EDI1, liv.LI_ADRESSE, liv.LI_CODEPOSTAL, liv.LI_CODEREGION, liv.LI_COMPLEMENT, liv.LI_VILLE, liv.LI_PAYS, doc.DO_DEVISE, doc.DO_DATE, doc.DO_DATELIVR, cond.C_MODE, doc.FNT_TOTALHTNET,doc.do_tiers,doc.do_motif " +
-     "FROM F_comptet cli, P_condlivr cond, F_docentete doc, F_LIVRAISON liv " +
-     "WHERE (doc.DO_DOMAINE=0) AND (doc.DO_TYPE=1) AND (doc.LI_NO=liv.LI_NO) AND (cond.CBINDICE=doc.do_condition) AND (cli.CT_NUM=doc.do_tiers)";
-        }
-
-        public static string getListLignesCommandes(string codeCommande)
-        {
-            return "SELECT doc.DL_LIGNE, art.AR_CODEBARRE, doc.DL_DESIGN, doc.DL_QTE, doc.DL_PRIXUNITAIRE, doc.DL_MONTANTHT, doc.DO_DATELIVR, doc.AF_REFFOURNISS, doc.AC_REFCLIENT " +
-     "FROM F_ARTICLE art, F_DOCLIGNE doc " +
-     "WHERE doc.AR_REF = art.AR_REF and doc.do_piece='" + codeCommande + "'";
-        }
+   public static string getTransport(string id)
+   {
+       return "SELECT caption from IntrastatTransportMode where id='" + id + "'";
+   }
 
 
-        // ******************************************************************************************
-
-        public static string getListDocumentVente(string client, int type)
-        {
-            return "SELECT doc.DO_Piece,doc.DO_date,doc.DO_dateLivr,doc.DO_devise,doc.LI_No,doc.DO_Statut,doc.DO_taxe1,doc.DO_taxe2,doc.DO_taxe3,doc.DO_TypeTaxe1,doc.DO_TypeTaxe2,doc.DO_TypeTaxe3,doc.FNT_MontantEcheance,doc.FNT_MontantTotalTaxes,doc.FNT_NetAPayer,doc.FNT_PoidsBrut,doc.FNT_PoidsNet,doc.FNT_Escompte,doc.FNT_TotalHT,doc.FNT_TotalHTNet,doc.FNT_TotalTTC,liv.LI_ADRESSE, liv.LI_CODEPOSTAL, liv.LI_CODEREGION, liv.LI_COMPLEMENT, liv.LI_VILLE, liv.LI_PAYS, cond.C_MODE " +
-     "FROM F_comptet cli, P_condlivr cond, F_docentete doc, F_LIVRAISON liv " +
-     "WHERE (doc.DO_DOMAINE=0) AND (doc.DO_TYPE=" + type + ") AND (doc.DO_TIERS='" + client + "') AND (doc.LI_NO=liv.LI_NO) AND (cond.CBINDICE=doc.do_condition)  AND (cli.CT_NUM=doc.do_tiers)";
-        }
-
-        public static string getListDocumentVenteLine(string codeDocument)
-        {
-            return "SELECT doc.DO_Date,doc.DO_DateLivr,doc.DL_Ligne,doc.AR_Ref,doc.DL_Design,doc.DL_Qte,doc.DL_QteBC,doc.DL_QteBL,doc.EU_Qte,doc.DL_PoidsNet,doc.DL_PoidsBrut,doc.DL_Remise01REM_Valeur,doc.DL_Remise01REM_Type,doc.DL_Remise03REM_Valeur,doc.DL_Remise03REM_Type,doc.DL_PrixUnitaire,doc.DL_Taxe1,doc.DL_Taxe2,doc.DL_Taxe3,doc.DL_TypeTaxe1,doc.DL_TypeTaxe2,doc.DL_TypeTaxe3,doc.DL_MontantHT,doc.DL_MontantTTC,doc.DL_NoColis,doc.FNT_MontantHT,doc.FNT_MontantTaxes,doc.FNT_MontantTTC,doc.FNT_PrixUNet,doc.FNT_PrixUNetTTC,doc.FNT_RemiseGlobale,art.AR_CODEBARRE " +
-     "FROM F_ARTICLE art, F_DOCLIGNE doc " +
-     "WHERE doc.AR_REF = art.AR_REF and doc.do_piece='" + codeDocument + "'";
-        }
-
-        public static string getListClient()
-        {
-            return "SELECT CT_Num,CT_Intitule,CT_Adresse,CT_APE,CAPITAL_SOCIAL,CT_CodePostal,CT_CodeRegion,CT_Complement,CT_CONTACT,CT_EDI1,CT_email,CT_Identifiant, CT_Ville,CT_Pays,CT_Siret,CT_Telephone,N_DEVISE  FROM F_COMPTET";
-        }
-
-
-        #endregion
-    }
+    #endregion
+  }
 }

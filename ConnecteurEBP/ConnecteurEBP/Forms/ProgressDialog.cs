@@ -5,10 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ConnecteurEBP.Forms
+namespace ProgressBarExample
 {
     public partial class ProgressDialog : Form
     {
@@ -23,7 +22,7 @@ namespace ConnecteurEBP.Forms
                 progressBar1.BeginInvoke(new Action(() => progressBar1.Value = progress));
             else
                 progressBar1.Value = progress;
-
+            
         }
 
         public void SetIndeterminate(bool isIndeterminate)
@@ -31,12 +30,12 @@ namespace ConnecteurEBP.Forms
             if (progressBar1.InvokeRequired)
             {
                 progressBar1.BeginInvoke(new Action(() =>
-                {
-                    if (isIndeterminate)
-                        progressBar1.Style = ProgressBarStyle.Marquee;
-                    else
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                }
+                    {
+                        if (isIndeterminate)
+                            progressBar1.Style = ProgressBarStyle.Marquee;
+                        else
+                            progressBar1.Style = ProgressBarStyle.Blocks;
+                    }
                 ));
             }
             else

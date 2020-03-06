@@ -16,13 +16,13 @@
         "Entry"
         {
         "MsmKey" = "8:_0A7B9074F0AEA9B39E5D128B7F7C7D81"
-        "OwnerKey" = "8:_886C6FFC201B42DBBB3860085AE60AC4"
+        "OwnerKey" = "8:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_0A7B9074F0AEA9B39E5D128B7F7C7D81"
-        "OwnerKey" = "8:_CF50E4975BD844F0ACD5D8666B89089A"
+        "OwnerKey" = "8:_CAE2107001D542719FF19808FDAAF0F1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -40,19 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_870A3351899B1709664EB2FDAFA5D5C4"
-        "OwnerKey" = "8:_CF50E4975BD844F0ACD5D8666B89089A"
+        "OwnerKey" = "8:_CAE2107001D542719FF19808FDAAF0F1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_870A3351899B1709664EB2FDAFA5D5C4"
-        "OwnerKey" = "8:_886C6FFC201B42DBBB3860085AE60AC4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_886C6FFC201B42DBBB3860085AE60AC4"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -69,7 +63,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CF50E4975BD844F0ACD5D8666B89089A"
+        "MsmKey" = "8:_CAE2107001D542719FF19808FDAAF0F1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -82,19 +82,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_870A3351899B1709664EB2FDAFA5D5C4"
+        "OwnerKey" = "8:_3AB32ECF08764F52900FD62031E9D049"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CF50E4975BD844F0ACD5D8666B89089A"
+        "OwnerKey" = "8:_CAE2107001D542719FF19808FDAAF0F1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_886C6FFC201B42DBBB3860085AE60AC4"
+        "OwnerKey" = "8:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,7 +106,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3AB32ECF08764F52900FD62031E9D049"
+        "OwnerKey" = "8:_870A3351899B1709664EB2FDAFA5D5C4"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -127,6 +127,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -143,6 +151,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -493,7 +509,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_12E4B07CD0824D688EE74F452AAD3CE8"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_ADACA44985EC4292AFB341230931B1EA"
             {
             "Name" = "8:ConnecteurEBP"
             "Arguments" = "8:"
@@ -501,13 +517,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_886C6FFC201B42DBBB3860085AE60AC4"
-            "Folder" = "8:_AB2732B3D95F4E9991CE1B2EA6B5B58F"
+            "Target" = "8:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
+            "Folder" = "8:_19BAF6FC7D474DFEA363031B6A314874"
             "WorkingFolder" = "8:_C4AF86C1ECB041BCB2CAF4C4A3015E90"
             "Icon" = "8:"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_ED58500230DE4D97A61061A6F468BBE8"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C69CE8D7517948A9923E0BEC5C64F3A0"
             {
             "Name" = "8:ConnecteurEBP"
             "Arguments" = "8:"
@@ -515,8 +531,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_886C6FFC201B42DBBB3860085AE60AC4"
-            "Folder" = "8:_19BAF6FC7D474DFEA363031B6A314874"
+            "Target" = "8:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
+            "Folder" = "8:_AB2732B3D95F4E9991CE1B2EA6B5B58F"
             "WorkingFolder" = "8:_C4AF86C1ECB041BCB2CAF4C4A3015E90"
             "Icon" = "8:"
             "Feature" = "8:"
@@ -948,35 +964,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_886C6FFC201B42DBBB3860085AE60AC4"
-            {
-            "SourcePath" = "8:..\\ConnecteurEBP\\obj\\Release\\ConnecteurEBP.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C4AF86C1ECB041BCB2CAF4C4A3015E90"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{821D421C-2280-4F09-91EF-703CBC8C535C}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CF50E4975BD844F0ACD5D8666B89089A"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CAE2107001D542719FF19808FDAAF0F1"
             {
             "SourcePath" = "8:..\\ImportPlanifier\\obj\\Release\\ImportPlanifier.exe"
             "TargetName" = "8:"
@@ -998,7 +986,35 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{B6238599-8CE0-4750-B2E6-A273AAF15962}"
+            "OutputProjectGuid" = "8:{96191E73-5181-4474-B40E-F2DAF5C81059}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D3CA7CE4DECC4B30A5B28CC781E3C4CE"
+            {
+            "SourcePath" = "8:..\\ConnecteurEBP\\obj\\Release\\ConnecteurEBP.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C4AF86C1ECB041BCB2CAF4C4A3015E90"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{7E01D6E9-F627-42FC-B925-6AA0EA9247F8}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

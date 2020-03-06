@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B6238599-8CE0-4750-B2E6-A273AAF15962}</ProjectGuid>
+    <ProjectGuid>{96191E73-5181-4474-B40E-F2DAF5C81059}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ImportPlanifier</RootNamespace>
     <AssemblyName>ImportPlanifier</AssemblyName>
@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
     <ApplicationIcon>scheduled-tasks-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
@@ -46,7 +49,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -75,11 +81,35 @@
     <Compile Include="Utilities\CommandLinesHelper.cs" />
     <Compile Include="Utilities\QueryHelper.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\icon_Transfer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scheduled-tasks-icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="scheduled-tasks-icon.ico" />
   </ItemGroup>

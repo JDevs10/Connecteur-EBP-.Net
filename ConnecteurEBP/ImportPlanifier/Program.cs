@@ -1,39 +1,26 @@
 ﻿using ImportPlanifier.Classes;
-using ImportPlanifier.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ImportPlanifier
 {
-    class Program
+    static class Program
     {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
         static void Main(string[] args)
         {
-            //Microsoft.Win32.RegistryKey key;
-            //key = Microsoft.Win32.Registry.LocalMachine.CreateSubKey("SOFTWARE\\EBP\\SDKImport");
-            //key.SetValue("Version", "0.1");
-            //key.SetValue("Name", "SDK import de commande");
-            //key.SetValue("LocalImportPlanifier", @"C:\");
-            //key.Close();
-
-            //Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\EBP\\SDKImport");
-            // key.GetValue.GetSubKeyNames("Version",);
-            //Console.WriteLine(key.GetValue("LocalImportPlanifier"));
-            //Console.Read();
-            //MessageBox.Show("" + key.GetValue("LocalImportPlanifier"));
-
-            //ConsoleApplication1.Classes.ActionPlanifier a = new ConsoleApplication1.Classes.ActionPlanifier();
-            //a.importPlanifier();
-
+            string pathModule = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
             try
             {
-                string pathModule = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-
                 if (File.Exists(pathModule + @"\key.key"))
                 {
                     ValidationKey key = new ValidationKey();
@@ -53,21 +40,47 @@ namespace ImportPlanifier
                     else
                     {
                         Console.WriteLine("Votre licence n'est pas valide");
-                        Console.Read();
+
+                        try
+                        {
+                            Process progress = Process.Start(pathModule + @"\ConnecteurEBP.exe");
+                            progress.WaitForExit();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                 }
                 else
                 {
                     Console.WriteLine("Pas de licence");
-                    Console.Read();
+
+                    try
+                    {
+                        Process progress = Process.Start(pathModule + @"\ConnecteurEBP.exe");
+                        progress.WaitForExit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
 
             }
             catch
             {
                 Console.WriteLine("Votre licence n'est pas valide");
-                Console.Read();
 
+                try
+                {
+                    Process progress = Process.Start(pathModule + @"\ConnecteurEBP.exe");
+                    progress.WaitForExit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }

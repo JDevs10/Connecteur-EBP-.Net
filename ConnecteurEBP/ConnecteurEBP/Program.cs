@@ -1,13 +1,12 @@
-﻿using ConnecteurEBP.Forms;
-using ConnecteurEBP.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using ConnecteurEBP.Classes;
 using System.Xml.Serialization;
+using ConnecteurEBP.Classes;
+using ConnecteurEBP.Forms;
 
 namespace ConnecteurEBP
 {
@@ -37,31 +36,38 @@ namespace ConnecteurEBP
                     if (isCompatible != -1 && value0 != "" && thekey != "" && value1 == "252564541856412515418924525155124651")
                     {
                         //MessageBox.Show("ici");
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new Main());
+                        System.Windows.Forms.Application.EnableVisualStyles();
+                        System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+                        System.Windows.Forms.Application.Run(new New());
                     }
                     else
                     {
                         //MessageBox.Show("Votre licence n'est pas valide", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new Validation());
+                        System.Windows.Forms.Application.EnableVisualStyles();
+                        System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+                        System.Windows.Forms.Application.Run(new Validation());
                     }
                 }
                 else
                 {
                     string keyWord = GenererCle.Generer();
                     //MessageBox.Show("Votre licence n'est pas valide", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    MessageBox.Show("Key : " + keyWord, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Key : " + keyWord, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    var myfile = File.Create("test_key.txt");
-                    XmlSerializer xml = new XmlSerializer(typeof(string));
-                    xml.Serialize(myfile, "Key : " + keyWord);
-                    myfile.Close();
+                    try
+                    {
+                        StreamWriter file = new StreamWriter(pathModule + @"\test_key.txt");
+                        XmlSerializer reader = new XmlSerializer(typeof(string));
+                        reader.Serialize(file, "Key : " + keyWord);
+                        file.Close();
+                    }
+                    catch(Exception e)
+                    {
+                        MessageBox.Show("Message Erreur : "+e.Message, "Error Key File View", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
+                    System.Windows.Forms.Application.EnableVisualStyles();
+                    System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
                     //Application.Run(new Validation());
                     using (Forms.Validation form = new Forms.Validation())
                     {
@@ -70,7 +76,7 @@ namespace ConnecteurEBP
 
                     if (Validation.isValide)
                     {
-                        Application.Run(new Main());
+                        System.Windows.Forms.Application.Run(new New());
                     }
 
 
@@ -125,35 +131,24 @@ namespace ConnecteurEBP
             {
                 //MessageBox.Show(e.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 //MessageBox.Show("Votre licence n'est pas valide", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Validation());
+                System.Windows.Forms.Application.EnableVisualStyles();
+                System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+                System.Windows.Forms.Application.Run(new Validation());
+
+                Console.WriteLine("Error Message: "+ e.Message);
+                Console.ReadLine();
 
             }
 
+            //string sourceFile = @"C:\Documents and Settings\OTHMAN\Bureau\commande vente.csv";
+            //   string destinationFile = @"C:\Documents and Settings\OTHMAN\Bureau\test.txt";
 
+            //   // To move a file or folder to a new location:
+            //   System.IO.File.Move(sourceFile, destinationFile);
 
-            //RegistryKey Nkey = Registry.CurrentUser;
-            //try
-            //{
-            //    RegistryKey valKey = Nkey.OpenSubKey("Software\\TrackBack\\Values", true);
-            //    if (valKey == null)
-            //    {
-            //        Nkey.CreateSubKey("Software\\TrackBack\\Values");
-            //    }
-            //    valKey.SetValue("Key", "{465456451518748744445}");
-            //    valKey.SetValue("Value", "4556");
-            //}
-            //catch (Exception er)
-            //{
-            //    MessageBox.Show(er.Message, "MyApp", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //}
-            //finally
-            //{
-            //    Nkey.Close();
-            //} 
-
-
+            //     // To move an entire directory. To programmatically modify or combine
+            //     // path strings, use the System.IO.Path class.
+            //     //System.IO.Directory.Move(@"C:\Users\Public\public\test\", @"C:\Users\Public\private"); 
         }
     }
 }
