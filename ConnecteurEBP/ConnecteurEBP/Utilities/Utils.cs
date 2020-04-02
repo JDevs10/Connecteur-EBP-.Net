@@ -163,15 +163,21 @@ namespace ConnecteurEBP.Utilities
             catch (SecurityException e)
             {
                 //Exception pouvant survenir lorsque l'utilisateur n'a pas les permissions requises pour lire dans la base de registre
-                throw new SDKException(e.Message, e);
+                MessageBox.Show(e.Message, "Security Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw new SDKException(e.Message, e);
+                return new List<ConnecteurEBP.Classes.Application>();
             }
             catch (NullReferenceException e)
             {
-                throw new SDKException("Aucun produit EBP compatible n'a pu être trouvé", e);
+                MessageBox.Show(e.Message, "Null Reference Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw new SDKException("Aucun produit EBP compatible n'a pu être trouvé", e);
+                return new List<ConnecteurEBP.Classes.Application>();
             }
             catch (TypeInitializationException e)
             {
-                throw new SDKException(e.Message, e);
+                MessageBox.Show(e.Message, "Type Initialization Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw new SDKException(e.Message, e);
+                return new List<ConnecteurEBP.Classes.Application>();
             }
         }
 

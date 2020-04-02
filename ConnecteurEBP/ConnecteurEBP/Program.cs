@@ -51,7 +51,7 @@ namespace ConnecteurEBP
                 else
                 {
                     string keyWord = GenererCle.Generer();
-                    //MessageBox.Show("Votre licence n'est pas valide", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Votre licence n'est pas valide", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     //MessageBox.Show("Key : " + keyWord, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     try

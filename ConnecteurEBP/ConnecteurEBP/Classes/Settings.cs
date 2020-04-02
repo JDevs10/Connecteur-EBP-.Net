@@ -23,6 +23,7 @@ namespace ConnecteurEBP.Classes
         private static object syncRoot = new object();
         /// <summary>
         /// Retourne et modifie le chemin du fichier de paramètre de l'utilisateur
+        /// C:\ProgramData\EBP\SDKSettings_Invoicing.xml
         /// </summary>
         private static string SDKSettingsFile = Path.Combine(
           Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"EBP\SDKSettings_Invoicing.xml");

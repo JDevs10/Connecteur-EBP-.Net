@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ConnecteurEBP.Classes
 {
@@ -101,8 +102,11 @@ namespace ConnecteurEBP.Classes
                 crypterMot = crypterMot + Matrice2[listIndexMotcle[i]];
             }
 
+            string matrice = Matrice1[random.Next(0, 61)].ToString();
+            string cry = matrice + crypterMot + crypterDate;
 
-            string cry = Matrice1[random.Next(0, 61)].ToString() + crypterMot + crypterDate;
+            //MessageBox.Show("Matrice1 : " + matrice + "\ncrypterMot : " + crypterMot + "\ncrypterDate :" + crypterDate + "\ncry : " + cry + "\ncry2 : "+ cry.Substring(0, 4) + "-" + cry.Substring(4, 4) + "-" + cry.Substring(8, 4) + "-" + cry.Substring(12, 4));
+
             return cry.Substring(0, 4) + "-" + cry.Substring(4, 4) + "-" + cry.Substring(8, 4) + "-" + cry.Substring(12, 4);
         }
 
@@ -141,20 +145,21 @@ namespace ConnecteurEBP.Classes
 
             }
 
-            for (int i = 0; i < ListIndexDate2.Count; i++)
+            for (int i = 0; i < (ListIndexDate2.Count-1); i++)
             {
                 decrypterDate = decrypterDate + date1[ListIndexDate2[i]];
 
             }
 
-
+            //MessageBox.Show("DateTime s : " + decrypterDate);
 
             DateTime dateTime;
 
             // tester si la date est valide
             if (DateTime.TryParse(decrypterDate, out dateTime))
             {
-                if(dateTime == DateTime.Today)
+                //MessageBox.Show("DateTime s : " + decrypterDate + " \nDateTime " + dateTime + "\nToday: " + DateTime.Today);
+                if (dateTime == DateTime.Today)
                 {
                     isValideDate = true;
                 }
