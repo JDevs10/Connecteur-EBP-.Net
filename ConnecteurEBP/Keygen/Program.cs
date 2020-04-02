@@ -12,12 +12,72 @@ namespace Keygen
     {
         static void Main(string[] args)
         {
+            string USER = "admin";
+            string PASSWORD = "Rozumim1,";
             // add introduction
             new Utils().Intro();
 
             // ask if it's a trial key or prod key with or without limited time
             Console.WriteLine("Welsome to Sage Keygen !!!");
-            
+
+            string user;
+            string pwd;
+            bool loginReply = false;
+            do
+            {
+                Console.WriteLine("Authentication is required !");
+                Console.WriteLine("Enter your username : ");
+                user = Console.ReadLine();
+                Console.WriteLine("Enter your password : ");
+                //pwd = Console.ReadLine();
+                pwd = "";
+                do
+                {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    // Backspace Should Not Work
+                    if (keyInfo.Key != ConsoleKey.Backspace && keyInfo.Key != ConsoleKey.Enter)
+                    {
+                        pwd += keyInfo.KeyChar;
+                        Console.Write("*");
+                    }
+                    else
+                    {
+                        if (keyInfo.Key == ConsoleKey.Backspace && pwd.Length > 0)
+                        {
+                            pwd = pwd.Substring(0, (pwd.Length - 1));
+                            Console.Write("\b \b");
+                        }
+                        else if (keyInfo.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                    }
+                } while (true);
+
+                if (user.Equals("exit") || user.Equals("end"))
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Thank you for using Keygen! ");
+                    Console.WriteLine("Good Bye..... ");
+                    System.Threading.Thread.Sleep(2000);
+                    Environment.Exit(0);
+                }
+                else if (user == USER && pwd == PASSWORD)
+                {
+                    // good, ok
+                    Console.WriteLine("\n");
+                    loginReply = true;
+                }
+                else
+                {
+                    // did not understand
+                    Console.WriteLine("");
+                    Console.WriteLine("Sorry I don't recognize you....");
+                    Console.WriteLine("");
+                    loginReply = false;
+                }
+            } while (!loginReply);
+
             bool globalReply = true;
 
             do

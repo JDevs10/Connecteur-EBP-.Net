@@ -68,7 +68,7 @@ namespace ConnecteurEBP
 
                     DateTime dateTime;
                     bool isValideDate = false;
-                    MessageBox.Show("DateTime s : " + decrypterDate +  "\nToday: " + DateTime.Today);
+                    //MessageBox.Show("DateTime s : " + decrypterDate +  "\nToday: " + DateTime.Today);
                     if (DateTime.TryParse(decrypterDate, out dateTime))
                     {
                         if (dateTime >= DateTime.Today)
@@ -107,7 +107,7 @@ namespace ConnecteurEBP
                     string keyWord = GenererCle.Generer();
                     MessageBox.Show("Votre licence n'est pas valide", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     //MessageBox.Show("Key : " + keyWord, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    /*
                     try
                     {
                         StreamWriter file = new StreamWriter(pathModule + @"\test_key.txt");
@@ -119,6 +119,7 @@ namespace ConnecteurEBP
                     {
                         MessageBox.Show("Message Erreur : "+e.Message, "Error Key File View", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    */
 
                     System.Windows.Forms.Application.EnableVisualStyles();
                     System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
