@@ -103,9 +103,15 @@ namespace ConnecteurEBP.Forms
 
             if (GenererCle.decrypter(motcle))
             {
+                /*
                 Random random = new Random();
                 char[] tab0 = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
                 string value0 = tab0[random.Next(0, 9)] + "" + tab0[random.Next(0, 9)] + "" + tab0[random.Next(0, 9)] + "" + tab0[random.Next(0, 9)] + "" + tab0[random.Next(0, 9)];
+                
+                ValidationKey key = new ValidationKey("1.0","Production", "Big Data Consulting", value0 + "" + motcle, value0, "252564541856412515418924525155124651");
+                key.saveInfo(key, "key.key");
+                */
+
                 //MessageBox.Show(value0);
                 // Enregister clé dans le registre
                 /*
@@ -118,9 +124,6 @@ namespace ConnecteurEBP.Forms
                 key.SetValue("Value1", "252564541856412515418924525155124651");
                 key.Close();
                 */
-
-                ValidationKey key = new ValidationKey("1.0","Big Data Consulting", value0 + "" + motcle, value0, "252564541856412515418924525155124651");
-                key.saveInfo(key, "key.key");
 
                 isValide = true;
 

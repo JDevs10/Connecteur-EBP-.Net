@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnecteurEBP", "Connecteur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportPlanifier", "ImportPlanifier\ImportPlanifier.csproj", "{96191E73-5181-4474-B40E-F2DAF5C81059}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keygen", "Keygen\Keygen.csproj", "{C046079B-1789-4930-A5F8-789FCE4C7ABF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{96191E73-5181-4474-B40E-F2DAF5C81059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96191E73-5181-4474-B40E-F2DAF5C81059}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96191E73-5181-4474-B40E-F2DAF5C81059}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C046079B-1789-4930-A5F8-789FCE4C7ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C046079B-1789-4930-A5F8-789FCE4C7ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C046079B-1789-4930-A5F8-789FCE4C7ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C046079B-1789-4930-A5F8-789FCE4C7ABF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
