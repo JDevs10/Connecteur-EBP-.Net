@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Keygen.Utilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using System.Xml.Serialization;
-using ConnecteurEBP.Utilities;
 
-namespace ConnecteurEBP.Classes
+namespace Keygen.Classes
 {
     public class ValidationKey
     {
