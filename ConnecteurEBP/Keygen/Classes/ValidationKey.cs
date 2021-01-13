@@ -46,9 +46,14 @@ namespace Keygen.Classes
             {
                 var myfile = File.Create(pathModule + @"\" + fileName);
                 XmlSerializer xml = new XmlSerializer(typeof(ValidationKey));
+                key.Key = key.Key;
+                key.Value0 = key.Value0;
+                key.Value1 = key.Value1;
+                /*
                 key.Key = Utils.Encrypt(key.Key);
                 key.Value0 = Utils.Encrypt(key.Value0);
                 key.Value1 = Utils.Encrypt(key.Value1);
+                */
                 xml.Serialize(myfile, key);
                 myfile.Close();
             }
@@ -71,9 +76,14 @@ namespace Keygen.Classes
                 this.Version = key.Version;
                 this.Type = key.Type;
                 this.Name = key.Name;
+                this.Key = key.Key;
+                this.Value0 = key.Value0;
+                this.Value1 = key.Value1;
+                /*
                 this.Key = Utils.Decrypt(key.Key);
                 this.Value0 = Utils.Decrypt(key.Value0);
                 this.Value1 = Utils.Decrypt(key.Value1);
+                */
                 file.Close();
             }
         }
